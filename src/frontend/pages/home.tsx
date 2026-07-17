@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Loading from "../components/Loading"
 import axios from "axios"
 import type { allProductsInterface } from "../../types/types"
+import SideMenu from "../components/SideMenu"
 
 export default function Home() {
 
@@ -39,6 +40,7 @@ export default function Home() {
             <div>
                 {allProducts}
             </div>
+            <SideMenu />
         </main>
     )
 }
