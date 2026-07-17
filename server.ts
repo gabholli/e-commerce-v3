@@ -21,8 +21,7 @@ app.use(express.json())
 //     next()
 // })
 
-app.use((req, res) => {
-    console.log(req.body)
+app.use((_req, res) => {
     res.send("Server here for e-commerce site...")
 })
 
