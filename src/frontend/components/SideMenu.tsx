@@ -8,6 +8,12 @@ export default function SideMenu() {
                 <Link
                     className="hover:underline"
                     to="/"
+                    state={{ category: "" }}>
+                    All Items
+                </Link>
+                <Link
+                    className="hover:underline"
+                    to="/"
                     state={{ category: "men's clothing" }}>
                     Men's Clothing
                 </Link>
@@ -31,6 +37,12 @@ export default function SideMenu() {
                 </Link>
             </nav >
             <nav className="hidden md:flex flex-col justify-center items-center">
+                <Link
+                    className="hover:underline"
+                    to="/"
+                    state={{ category: "" }}>
+                    All Items
+                </Link>
                 <Link
                     className="hover:underline"
                     to="/"
