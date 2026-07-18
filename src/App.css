@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@layer utilities {
+    .layout-dashboard {
+        grid-template-areas:
+            "items sidebar";
+    }
+
+    .area-items {
+        grid-area: items;
+    }
+
+    .area-sidebar {
+        grid-area: sidebar;
+    }
+}

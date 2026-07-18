@@ -43,9 +43,13 @@ export default function Home() {
     }
 
     return (
-        <main className="flex flex-col justify-center items-center">
-            <SideMenu />
-            <div>
+        <main className="flex flex-col justify-center items-center
+            md:grid md:grid-cols-[1fr_200px] layout-dashboard">
+            <div className="area-sidebar md:self-start border-2 border-black*
+                rounded-lg">
+                <SideMenu />
+            </div>
+            <div className="area-items">
                 {allProducts}
             </div>
         </main>
