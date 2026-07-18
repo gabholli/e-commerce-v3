@@ -3,11 +3,18 @@ import Loading from "../components/Loading"
 import axios from "axios"
 import type { allProductsInterface } from "../../types/types"
 import SideMenu from "../components/SideMenu"
+import { useLocation } from "react-router"
 
 export default function Home() {
 
     const [products, setProducts] = useState<allProductsInterface[]>()
     const [loading, setLoading] = useState<boolean>(false)
+
+    const location = useLocation()
+    const categoryType = location.state?.category
+    const filteredResults = categoryType
+        ? products?.filter(product => product.category === categoryType)
+        : products
 
     useEffect(() => {
         setLoading(true)
@@ -23,9 +30,9 @@ export default function Home() {
 
     }, [])
 
-    const allProducts = products?.map((product) => {
+    const allProducts = filteredResults?.map((product) => {
         return (
-            <div>
+            <div key={product.id}>
                 <h1>{product.title}</h1>
             </div>
         )
@@ -36,11 +43,11 @@ export default function Home() {
     }
 
     return (
-        <main>
+        <main className="flex flex-col justify-center items-center">
+            <SideMenu />
             <div>
                 {allProducts}
             </div>
-            <SideMenu />
         </main>
     )
 }
