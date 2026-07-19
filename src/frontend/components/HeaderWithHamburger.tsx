@@ -26,7 +26,7 @@ export default function HeaderWithHamburger() {
         <header
             ref={menuRef}
             className="flex justify-between items-center
-            text-black py-6 px-8 md:px-16 xl:px-32 border-b-2 border-black text-center">
+            text-black py-6 px-8 md:px-16 xl:px-32 border-b-2 border-neutral-300 text-center">
             <section className="p-2">
                 <h1 className="text-xl md:text-4xl font-bold">React Shop</h1>
             </section>
