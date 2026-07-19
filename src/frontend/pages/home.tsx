@@ -43,7 +43,7 @@ export default function Home() {
     }
 
     return (
-        <main className="flex flex-col justify-center items-center
+        <main className="flex flex-col justify-center items-start
             md:grid md:grid-cols-[1fr_200px] layout-dashboard">
             <div className="area-sidebar md:self-start*
                 rounded-lg">
