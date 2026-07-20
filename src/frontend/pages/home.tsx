@@ -44,7 +44,7 @@ export default function Home() {
                     src={product.image} alt="Product image" />
                 <div className="flex flex-col gap-y-6">
                     <div>
-                        <h1 className="font-extrabold">{product.title}</h1>
+                        <h1 className="font-extrabold h-20">{product.title}</h1>
                     </div>
                     <div className="flex justify-between">
                         <p className="bg-green-500 text-white px-4 pb-1 rounded-3xl">{product.category}</p>
