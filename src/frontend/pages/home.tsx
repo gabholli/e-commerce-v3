@@ -30,10 +30,28 @@ export default function Home() {
 
     }, [])
 
+    console.log(products)
+
     const allProducts = filteredResults?.map((product) => {
         return (
-            <div key={product.id}>
-                <h1>{product.title}</h1>
+            <div
+                key={product.id}
+                className="border-2 border-neutral-300 p-4 rounded-3xl
+                flex flex-col justify-between gap-y-6"
+            >
+                <img
+                    className="h-80 object-scale-down mb-4"
+                    src={product.image} alt="Product image" />
+                <div className="flex flex-col gap-y-6">
+                    <div>
+                        <h1 className="font-extrabold">{product.title}</h1>
+                    </div>
+                    <div className="flex justify-between">
+                        <p className="bg-green-500 text-white px-4 pb-1 rounded-3xl">{product.category}</p>
+                        <p className="font-bold">${product.price}</p>
+                    </div>
+                </div>
+
             </div>
         )
     })
@@ -44,12 +62,12 @@ export default function Home() {
 
     return (
         <main className="flex flex-col justify-center md:items-start items-center
-            md:grid md:grid-cols-[1fr_200px] layout-dashboard">
+            md:grid md:grid-cols-[1fr_200px] layout-dashboard p-6 gap-y-6">
             <div className="area-sidebar md:self-start*
                 rounded-lg">
                 <SideMenu />
             </div>
-            <div className="area-items">
+            <div className="area-items grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {allProducts}
             </div>
         </main>

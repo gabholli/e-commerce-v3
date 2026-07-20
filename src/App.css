@@ -13,4 +13,53 @@
     .area-sidebar {
         grid-area: sidebar;
     }
+
+    .product-item-layout {
+        grid-template-areas:
+            "image image",
+            "title .",
+            "category price";
+    }
+
+    .product-image-area {
+        grid-area: image;
+    }
+
+    .product-title-area {
+        grid-area: title;
+    }
+
+    .product-category-area {
+        grid-area: category;
+    }
+
+    .product-price-area {
+        grid-area: price;
+    }
+
+}
+
+
+
+.product-item-layout {
+    grid-template-areas:
+        "image image",
+        "title .",
+        "category price";
+}
+
+.product-image-area {
+    grid-area: image;
+}
+
+.product-title-area {
+    grid-area: title;
+}
+
+.product-category-area {
+    grid-area: category;
+}
+
+.product-price-area {
+    grid-area: price;
 }
