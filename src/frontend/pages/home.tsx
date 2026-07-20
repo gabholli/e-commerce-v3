@@ -54,6 +54,10 @@ export default function Home() {
                         </div>
                     </div>
                 </Link>
+                <button
+                    className="bg-green-500 text-white p-3 rounded-3xl"
+                >Add to cart
+                </button>
 
             </div>
         )
