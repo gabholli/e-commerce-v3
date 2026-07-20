@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import HeaderWithHamburger from "./HeaderWithHamburger";
+import BackToTopButton from "./BackToTopButton";
 
 export default function SiteLayout() {
     return (
@@ -8,6 +9,7 @@ export default function SiteLayout() {
             <main>
                 <Outlet />
             </main>
+            <BackToTopButton />
         </div>
 
     )
