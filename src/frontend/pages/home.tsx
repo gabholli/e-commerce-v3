@@ -3,7 +3,7 @@ import Loading from "../components/Loading"
 import axios from "axios"
 import type { allProductsInterface } from "../../types/types"
 import SideMenu from "../components/SideMenu"
-import { useLocation } from "react-router"
+import { Link, useLocation } from "react-router"
 
 export default function Home() {
 
@@ -39,18 +39,21 @@ export default function Home() {
                 className="border-2 border-neutral-300 p-4 rounded-3xl
                 flex flex-col justify-between gap-y-6"
             >
-                <img
-                    className="h-80 object-scale-down mb-4"
-                    src={product.image} alt="Product image" />
-                <div className="flex flex-col gap-y-6">
-                    <div>
-                        <h1 className="font-extrabold h-20">{product.title}</h1>
+                <Link
+                    to={`${product.id}`}>
+                    <img
+                        className="h-80 object-scale-down mb-4 block m-auto"
+                        src={product.image} alt="Product image" />
+                    <div className="flex flex-col gap-y-6">
+                        <div>
+                            <h1 className="font-extrabold h-20">{product.title}</h1>
+                        </div>
+                        <div className="flex justify-between">
+                            <p className="bg-green-500 text-white px-4 pb-1 rounded-3xl">{product.category}</p>
+                            <p className="font-bold">${product.price}</p>
+                        </div>
                     </div>
-                    <div className="flex justify-between">
-                        <p className="bg-green-500 text-white px-4 pb-1 rounded-3xl">{product.category}</p>
-                        <p className="font-bold">${product.price}</p>
-                    </div>
-                </div>
+                </Link>
 
             </div>
         )
