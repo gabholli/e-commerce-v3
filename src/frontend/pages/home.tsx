@@ -55,7 +55,7 @@ export default function Home() {
                     </div>
                 </Link>
                 <button
-                    className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer"
+                    className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline"
                 >Add to cart
                 </button>
 
