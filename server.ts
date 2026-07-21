@@ -1,6 +1,6 @@
 import express from "express"
 // import cors from "cors"
-// import createTable from "./src/backend/createTable.tsx"
+import createTable from "./src/backend/createTable.ts"
 
 const app = express()
 
@@ -25,8 +25,6 @@ app.use((_req, res) => {
     res.send("Server here for e-commerce site...")
 })
 
-app.listen(PORT, () => console.log("Server connected..."))
-
-// createTable().then(() => {
-//     app.listen(PORT, () => console.log("Server connected..."))
-// })
+createTable().then(() => {
+    app.listen(PORT, () => console.log("Server connected..."))
+})
