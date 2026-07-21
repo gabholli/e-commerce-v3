@@ -5,6 +5,7 @@ export default function SideMenu() {
         <>
             <nav className="flex flex-col justify-center items-center md:hidden p-4
                 gap-y-4 border-2 border-neutral-300 rounded-3xl">
+                <h1 className="text-xl underline">Categories:</h1>
                 <Link
                     className="hover:underline"
                     to="/"
@@ -37,7 +38,8 @@ export default function SideMenu() {
                 </Link>
             </nav >
             <nav className="hidden md:flex flex-col justify-center items-center
-            border-2 border-neutral-300 rounded-3xl">
+            border-2 border-neutral-300 rounded-3xl gap-y-2 py-4 md:mx-4">
+                <h1 className="text-xl underline">Categories:</h1>
                 <Link
                     className="hover:underline"
                     to="/"
