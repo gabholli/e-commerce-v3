@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "postinstall": "npm rebuild sqlite3 --build-from-source",
     "dev": "vite",
     "server": "nodemon server.ts",
     "build": "tsc -b && vite build",
