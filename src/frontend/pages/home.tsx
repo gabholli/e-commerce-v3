@@ -40,7 +40,7 @@ export default function Home() {
                 flex flex-col justify-between gap-y-6"
             >
                 <Link
-                    to={`${product.id}`}>
+                    to={`/product/${product.id}`}>
                     <img
                         className="h-80 object-scale-down mb-4 block m-auto"
                         src={product.image} alt="Product image" />
