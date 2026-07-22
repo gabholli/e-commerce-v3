@@ -5,6 +5,7 @@ import Home from './frontend/pages/home'
 import Cart from './frontend/pages/cart'
 import Login from './frontend/pages/login'
 import ProductDetails from './frontend/pages/productDetails'
+import NotFound from './frontend/pages/notFound'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/:id" element={<ProductDetails />} />
         <Route path="cart" element={<Cart />} />
         <Route path="login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )
