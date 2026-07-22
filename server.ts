@@ -21,6 +21,11 @@ app.use(express.json())
 //     next()
 // })
 
+// app.use("/auth/me", meRouter)
+// app.use("/auth", authRouter)
+// app.use("products", productsRouter)
+// app.use("/cart", cartRouter)
+
 app.use((_req, res) => {
     res.send("Server here for e-commerce site...")
 })
