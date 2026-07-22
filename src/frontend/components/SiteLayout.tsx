@@ -6,9 +6,7 @@ export default function SiteLayout() {
     return (
         <div className="flex flex-col min-h-dvh">
             <HeaderWithHamburger />
-            <main>
-                <Outlet />
-            </main>
+            <Outlet />
             <BackToTopButton />
         </div>
 
