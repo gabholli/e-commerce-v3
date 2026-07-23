@@ -6,3 +6,8 @@ export interface allProductsInterface {
     category: string
     image: string
 }
+
+export interface AuthContextType {
+    loggedIn: boolean
+    setLoggedIn: (value: boolean) => void
+}
