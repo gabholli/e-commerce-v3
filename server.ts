@@ -3,6 +3,7 @@ import express from "express"
 import cors from "cors"
 import createTable from "./src/backend/createTable.ts"
 import session from "express-session"
+import { authRouter } from "./src/backend/routes/authRoutes.ts"
 
 const app = express()
 
@@ -39,7 +40,7 @@ app.use(session({
 //     next()
 // })
 
-// app.use("/auth", authRouter)
+app.use("/auth", authRouter)
 // app.use("/cart", cartRouter)
 
 app.use((_req, res) => {
