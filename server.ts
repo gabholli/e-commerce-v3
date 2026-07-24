@@ -39,9 +39,7 @@ app.use(session({
 //     next()
 // })
 
-// app.use("/auth/me", meRouter)
 // app.use("/auth", authRouter)
-// app.use("products", productsRouter)
 // app.use("/cart", cartRouter)
 
 app.use((_req, res) => {
