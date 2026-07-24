@@ -1,6 +1,6 @@
 import validator from "validator"
 import type { Request, Response } from "express"
-import getDBConnection from "../db/db"
+import getDBConnection from "../db/db.ts"
 import bcrypt from "bcryptjs"
 
 export async function registerUser(req: Request, res: Response) {
