@@ -4,13 +4,13 @@ import path from "node:path"
 
 export default async function createTable() {
 
-    const db = await open({
-        filename: path.join("database.db"),
-        driver: sqlite3.Database
-    })
+      const db = await open({
+            filename: path.join("database.db"),
+            driver: sqlite3.Database
+      })
 
 
-    await db.exec(`
+      await db.exec(`
             CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
@@ -21,9 +21,9 @@ export default async function createTable() {
             );
       `)
 
-    console.log("Users table created")
+      console.log("Users table created")
 
-    await db.exec(`
+      await db.exec(`
             CREATE TABLE IF NOT EXISTS cart_items (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
                   user_id INTEGER NOT NULL,
@@ -34,9 +34,9 @@ export default async function createTable() {
             );
      `)
 
-    console.log("Cart items table created.")
+      console.log("Cart items table created.")
 
-    await db.exec(`
+      await db.exec(`
             CREATE TABLE IF NOT EXISTS products (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
                   title TEXT NOT NULL,
@@ -46,8 +46,8 @@ export default async function createTable() {
             );
      `)
 
-    console.log("Products table created")
+      console.log("Products table created")
 
-    await db.close()
+      await db.close()
 
 }
