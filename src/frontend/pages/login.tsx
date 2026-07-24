@@ -35,7 +35,7 @@ export default function LogIn() {
     return (
         <main className="flex flex-1 justify-center items-center">
             <form
-                className="w-md m-auto p-4 md:p-20 flex flex-col gap-y-4 justify-center items-center"
+                className="max-w-md w-full m-auto p-4 md:p-20 flex flex-col gap-y-4 justify-center items-center"
                 action={loginSubmit}
             >
                 <h2 className="self-start font-bold text-lg">Sign In</h2>
@@ -63,7 +63,7 @@ export default function LogIn() {
                     />
                 </div>
 
-                <button className="hover:bg-green-400 rounded-xl mt-4 px-4 py-2 bg-green-500 text-white cursor-pointer">Sign In</button>
+                <button className="w-24 hover:bg-green-400 rounded-xl mt-4 px-4 py-2 bg-green-500 text-white cursor-pointer">Sign In</button>
                 {/* {error && <p className="text-red-600 text-center pt-4">{error}</p>} */}
             </form >
         </main >
