@@ -35,7 +35,7 @@ export default function LogIn() {
     return (
         <main className="flex flex-1 justify-center items-center">
             <form
-                className="max-w-md m-auto p-4 md:p-20 flex flex-col gap-y-4 justify-center items-center"
+                className="w-md m-auto p-4 md:p-20 flex flex-col gap-y-4 justify-center items-center"
                 action={loginSubmit}
             >
                 <h2 className="self-start font-bold text-lg">Sign In</h2>
