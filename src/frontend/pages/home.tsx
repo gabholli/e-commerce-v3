@@ -49,7 +49,7 @@ export default function Home() {
                             <h1 className="font-extrabold h-20">{product.title}</h1>
                         </div>
                         <div className="flex justify-between">
-                            <p className="bg-green-500 text-white px-4 pb-1 rounded-3xl">{product.category}</p>
+                            <p className="bg-green-400 text-white px-4 pb-1 rounded-3xl">{product.category}</p>
                             <p className="font-bold">${product.price}</p>
                         </div>
                     </div>
