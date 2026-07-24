@@ -35,11 +35,11 @@ export default function SignUp() {
             >
                 <h2 className="self-start font-bold text-lg">Sign Up</h2>
                 <p className="self-start text-lg">
-                    Already have an account? <Link className="text-blue-500" to="/login">Sign in</Link>
+                    Already have an account? <Link className="text-green-500" to="/login">Sign in</Link>
                 </p>
                 <div className="flex flex-col py-4 w-full">
                     <input
-                        className="indent-4 p-2 border-white border-2 rounded-xl"
+                        className="indent-4 p-2 border-2 rounded-xl"
                         type="email"
                         name="email"
                         id="email"
@@ -48,14 +48,14 @@ export default function SignUp() {
                 </div>
                 <div className="flex flex-col py-4 w-full">
                     <input
-                        className="indent-4 p-2 border-white border-2 rounded-xl"
+                        className="indent-4 p-2 border-2 rounded-xl"
                         type="password"
                         name="password"
                         id="password"
                         placeholder="Password"
                     />
                 </div>
-                <button className="hover:bg-blue-400 rounded-xl mt-4 px-4 py-2 bg-blue-500 text-white cursor-pointer">Sign Up</button>
+                <button className="hover:bg-green-400 rounded-xl mt-4 px-4 py-2 bg-green-500 text-white cursor-pointer">Sign Up</button>
                 {/* {error && <p className="text-red-600 text-center pt-4">{error}</p>} */}
             </form>
         </main >
