@@ -1,34 +1,29 @@
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
-// import { UserAuth } from "../context/AuthContext";
 import api from "../../backend/api";
 
-export default function LogIn() {
-
-    const { setLoggedIn } = UserAuth()
+export default function SignUp() {
 
     const navigate = useNavigate()
 
-    async function loginSubmit(formData: FormData) {
+    async function signUpSubmit(formData: FormData) {
         try {
             let emailValue = formData.get("email") as string
             let passwordValue = formData.get("password") as string
-            if (!emailValue || !passwordValue) return
-
-            const response = api.post("/auth/login",
+            if (!emailValue || !passwordValue) {
+                toast.error("Please fill out all fields.")
+                return
+            }
+            const res = await api.post("/auth/register",
                 { email: emailValue, password: passwordValue },
                 { withCredentials: true }
             )
-
-            if ((await response).data.message) {
-                setLoggedIn(true)
-                toast.success("You are logged in!")
-                navigate("/")
-            }
+            toast.success(res.data.message)
+            navigate("/")
 
         } catch (error: any) {
             console.error(error.message)
-            toast.error(error.response?.data?.error || "Error logging in.")
+            toast.error(error.response?.data?.error || "Error signing up.")
         }
     }
 
@@ -36,20 +31,19 @@ export default function LogIn() {
         <main className="flex flex-1 justify-center items-center">
             <form
                 className="max-w-md m-auto p-4 md:p-20 flex flex-col gap-y-4 justify-center items-center"
-                action={loginSubmit}
+                action={signUpSubmit}
             >
-                <h2 className="self-start font-bold text-lg">Sign In</h2>
+                <h2 className="self-start font-bold text-lg">Sign Up</h2>
                 <p className="self-start text-lg">
-                    Don't have an account yet? <Link className="text-blue-500" to="/signup">Sign up</Link>
+                    Already have an account? <Link className="text-blue-500" to="/login">Sign in</Link>
                 </p>
                 <div className="flex flex-col py-4 w-full">
                     <input
-                        className=" indent-4 p-2 border-white border-2 rounded-xl"
+                        className="indent-4 p-2 border-white border-2 rounded-xl"
                         type="email"
                         name="email"
                         id="email"
                         placeholder="Email"
-                        required
                     />
                 </div>
                 <div className="flex flex-col py-4 w-full">
@@ -59,13 +53,11 @@ export default function LogIn() {
                         name="password"
                         id="password"
                         placeholder="Password"
-                        required
                     />
                 </div>
-
-                <button className="hover:bg-blue-400 rounded-xl mt-4 px-4 py-2 bg-blue-500 text-white cursor-pointer">Sign In</button>
+                <button className="hover:bg-blue-400 rounded-xl mt-4 px-4 py-2 bg-blue-500 text-white cursor-pointer">Sign Up</button>
                 {/* {error && <p className="text-red-600 text-center pt-4">{error}</p>} */}
-            </form >
+            </form>
         </main >
     )
 }

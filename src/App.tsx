@@ -6,6 +6,7 @@ import Cart from './frontend/pages/cart'
 import Login from './frontend/pages/login'
 import ProductDetails from './frontend/pages/productDetails'
 import NotFound from './frontend/pages/notFound'
+import SignUp from './frontend/pages/signup'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="product/:id" element={<ProductDetails />} />
         <Route path="cart" element={<Cart />} />
         <Route path="login" element={<Login />} />
+        <Route path="signup" element={<SignUp />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
