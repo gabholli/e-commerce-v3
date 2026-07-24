@@ -16,9 +16,7 @@ export default function LogIn() {
             if (!emailValue || !passwordValue) return
 
             const response = api.post("/auth/login",
-                { email: emailValue, password: passwordValue },
-                { withCredentials: true }
-            )
+                { email: emailValue, password: passwordValue })
 
             if ((await response).data.message) {
                 setLoggedIn(true)

@@ -15,9 +15,7 @@ export default function SignUp() {
                 return
             }
             const res = await api.post("/auth/register",
-                { email: emailValue, password: passwordValue },
-                { withCredentials: true }
-            )
+                { email: emailValue, password: passwordValue })
             toast.success(res.data.message)
             navigate("/")
 
