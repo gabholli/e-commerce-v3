@@ -1,11 +1,12 @@
 // import express from 'express'
 // import {
-//   addToCart,
-//   getCartCount,
-//   getAll,
-//   deleteItem,
-//   deleteAll } from '../controllers/cartController.js'
-// import { requireAuth } from '../middleware/requireAuth.js'
+//     addToCart,
+//     getCartCount,
+//     getAll,
+//     deleteItem,
+//     deleteAll
+// } from '../controllers/cartController.ts'
+// import requireAuth from '../middleware/requireAuth.ts'
 
 // export const cartRouter = express.Router()
 
