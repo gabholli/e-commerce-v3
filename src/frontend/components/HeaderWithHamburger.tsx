@@ -1,9 +1,13 @@
 import { NavLink } from "react-router";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useRef, useState } from "react";
+import { UserAuth } from "../context/AuthContext";
+import api from "../../backend/api";
+import toast from "react-hot-toast";
 
 export default function HeaderWithHamburger() {
 
+    const { loggedIn, setLoggedIn } = UserAuth()
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
     let menuRef = useRef<HTMLDivElement>(null)
@@ -21,6 +25,19 @@ export default function HeaderWithHamburger() {
             document.removeEventListener("mousedown", handler)
         }
     }, [])
+
+    function handleSignOut() {
+        api.get("/auth/logout")
+            .then(response => {
+                console.log(response.data)
+                setLoggedIn(false)
+                toast.success("Logged out successfully!")
+            })
+            .catch(error => {
+                console.error(error)
+                toast.error("Error logging out.")
+            })
+    }
 
     return (
         <header
@@ -42,11 +59,21 @@ export default function HeaderWithHamburger() {
                     to="/cart" end>
                     Cart
                 </NavLink>
-                <NavLink
-                    className="hover:underline"
-                    to="/login" end>
-                    Sign Up / Log In
-                </NavLink>
+                {!loggedIn ? (
+                    <NavLink
+                        className="hover:underline"
+                        to="login" end>
+                        Log In / Sign Up
+                    </NavLink>
+                ) : null}
+                {loggedIn ? (
+                    <button
+                        className="cursor-pointer hover:underline"
+                        onClick={handleSignOut}
+                    >
+                        Sign Out
+                    </button>
+                ) : null}
             </nav>
 
             <div
@@ -69,16 +96,21 @@ export default function HeaderWithHamburger() {
                         to="/" end>
                         Home
                     </NavLink>
-                    <NavLink
-                        className="hover:underline"
-                        to="/cart" end>
-                        Cart
-                    </NavLink>
-                    <NavLink
-                        className="hover:underline"
-                        to="/login" end>
-                        Sign Up / Log In
-                    </NavLink>
+                    {!loggedIn ? (
+                        <NavLink
+                            className="hover:underline"
+                            to="login" end>
+                            Log In / Sign Up
+                        </NavLink>
+                    ) : null}
+                    {loggedIn ? (
+                        <button
+                            className="cursor-pointer hover:underline"
+                            onClick={handleSignOut}
+                        >
+                            Sign Out
+                        </button>
+                    ) : null}
                 </nav>
             </div>
         </header>

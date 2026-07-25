@@ -34,11 +34,11 @@ app.use(session({
     }
 }))
 
-// app.use((req, _res, next) => {
-//     console.log("Content-Type:", req.headers["content-type"])
-//     console.log("Body:", req.body)
-//     next()
-// })
+app.use((req, _res, next) => {
+    console.log("Content-Type:", req.headers["content-type"])
+    console.log("Body:", req.body)
+    next()
+})
 
 app.use("/auth", authRouter)
 // app.use("/cart", cartRouter)
