@@ -3,7 +3,10 @@ import express from "express"
 import cors from "cors"
 import createTable from "./src/backend/createTable.ts"
 import session from "express-session"
+import memorystore from "memorystore"
 import { authRouter } from "./src/backend/routes/authRoutes.ts"
+
+const MemoryStore = memorystore(session)
 
 const app = express()
 
@@ -24,6 +27,9 @@ if (!process.env.SESSION_SECRET) {
 app.use(express.json())
 
 app.use(session({
+    store: new MemoryStore({
+        checkPeriod: 86400000
+    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
