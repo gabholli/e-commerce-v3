@@ -3,7 +3,10 @@ import express from "express"
 import cors from "cors"
 import createTable from "./src/backend/createTable.ts"
 import session from "express-session"
+import connectSqlite3 from "connect-sqlite3"
 import { authRouter } from "./src/backend/routes/authRoutes.ts"
+
+const SQLiteStore = connectSqlite3(session)
 
 const app = express()
 
@@ -24,21 +27,19 @@ if (!process.env.SESSION_SECRET) {
 app.use(express.json())
 
 app.use(session({
+    store: new SQLiteStore({
+        db: "sessions.db",
+        dir: "."
+    }) as session.Store,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === "production",
         sameSite: 'lax'
     }
 }))
-
-app.use((req, _res, next) => {
-    console.log("Content-Type:", req.headers["content-type"])
-    console.log("Body:", req.body)
-    next()
-})
 
 app.use("/auth", authRouter)
 // app.use("/cart", cartRouter)
@@ -49,4 +50,6 @@ app.use((_req, res) => {
 
 createTable().then(() => {
     app.listen(PORT, () => console.log("Server connected..."))
+}).catch((err) => {
+    console.error("Failed to start server:", err)
 })
