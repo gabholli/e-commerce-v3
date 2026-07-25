@@ -15,7 +15,6 @@
     "@tailwindcss/vite": "^4.3.2",
     "axios": "^1.18.1",
     "bcryptjs": "^3.0.3",
-    "connect-sqlite3": "^0.9.17",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
