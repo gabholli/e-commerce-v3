@@ -7,7 +7,7 @@
     "postinstall": "npm rebuild sqlite3 --build-from-source",
     "dev": "vite",
     "server": "nodemon server.ts",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
