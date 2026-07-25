@@ -5,6 +5,7 @@ import createTable from "./src/backend/createTable.ts"
 import session from "express-session"
 import memorystore from "memorystore"
 import { authRouter } from "./src/backend/routes/authRoutes.ts"
+import { meRouter } from "./src/backend/routes/meRoutes.ts"
 
 const MemoryStore = memorystore(session)
 
@@ -40,6 +41,7 @@ app.use(session({
     }
 }))
 
+app.use("/auth/me", meRouter)
 app.use("/auth", authRouter)
 // app.use("/cart", cartRouter)
 

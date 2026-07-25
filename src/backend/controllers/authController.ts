@@ -52,13 +52,6 @@ export async function registerUser(req: Request, res: Response) {
     }
 }
 
-export async function getMe(req: Request, res: Response) {
-    if (req.session.userId) {
-        return res.json({ isLoggedIn: true })
-    }
-    return res.json({ isLoggedIn: false })
-}
-
 export async function loginUser(req: Request, res: Response) {
 
     let { email, password } = req.body
