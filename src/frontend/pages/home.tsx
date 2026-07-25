@@ -30,8 +30,6 @@ export default function Home() {
 
     }, [])
 
-    console.log(products)
-
     const allProducts = filteredResults?.map((product) => {
         return (
             <div
