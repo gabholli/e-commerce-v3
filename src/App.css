@@ -14,12 +14,32 @@
         grid-area: sidebar;
     }
 
-    .product-item-layout {
+    .product-details-layout {
+        display: grid;
         grid-template-areas:
-            "image image",
-            "title .",
-            "category price";
+            "image"
+            "title"
+            "price"
+            "desc"
+            "button";
+        grid-template-columns: 1fr;
     }
+
+    @media (min-width: 768px) {
+        .product-details-layout {
+            display: grid;
+            grid-template-areas:
+                ". . image . ."
+                ". . title . ."
+                ". . price . ."
+                ". description description description ."
+                ". . button . .";
+
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+    }
+
 
     .product-image-area {
         grid-area: image;
@@ -29,37 +49,25 @@
         grid-area: title;
     }
 
-    .product-category-area {
-        grid-area: category;
+    .product-description-area {
+        grid-area: description;
     }
 
     .product-price-area {
         grid-area: price;
     }
 
-}
+    .product-button-area {
+        justify-self: center;
+        grid-area: button;
+    }
 
+    .product-details-layout-medium {
+        grid-template-columns: repeat(1, 1fr);
+    }
 
+    .product-details-layout-mobile {
+        grid-template-columns: 1fr;
+    }
 
-.product-item-layout {
-    grid-template-areas:
-        "image image",
-        "title .",
-        "category price";
-}
-
-.product-image-area {
-    grid-area: image;
-}
-
-.product-title-area {
-    grid-area: title;
-}
-
-.product-category-area {
-    grid-area: category;
-}
-
-.product-price-area {
-    grid-area: price;
 }
