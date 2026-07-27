@@ -52,7 +52,7 @@ export default function ProductDetails() {
     }
 
     return (
-        <div className='product-details-layout gap-y-4 border-gray-300 border-2 rounded-2xl p-4 mx-2'>
+        <div className='product-details-layout gap-y-6 border-gray-300 border-2 rounded-2xl p-4 mx-2'>
             <img className="product-image-area place-self-center size-64 object-scale-down"
                 src={product?.image}
                 alt="Product" />

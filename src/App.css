@@ -32,7 +32,7 @@
                 ". . image . ."
                 ". . title . ."
                 ". . price . ."
-                ". description description description ."
+                ". desc desc desc ."
                 ". . button . .";
 
             grid-template-columns: repeat(5, 1fr);
@@ -50,7 +50,7 @@
     }
 
     .product-description-area {
-        grid-area: description;
+        grid-area: desc;
     }
 
     .product-price-area {
@@ -60,14 +60,6 @@
     .product-button-area {
         justify-self: center;
         grid-area: button;
-    }
-
-    .product-details-layout-medium {
-        grid-template-columns: repeat(1, 1fr);
-    }
-
-    .product-details-layout-mobile {
-        grid-template-columns: 1fr;
     }
 
 }
