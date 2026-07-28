@@ -9,6 +9,7 @@ export default function HeaderWithHamburger() {
 
     const { loggedIn, setLoggedIn } = UserAuth()
     const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [cartCount, setCartCount] = useState<number>(0)
 
     let menuRef = useRef<HTMLDivElement>(null)
 
@@ -25,6 +26,21 @@ export default function HeaderWithHamburger() {
             document.removeEventListener("mousedown", handler)
         }
     }, [])
+
+    useEffect(() => {
+        if (!loggedIn) {
+            setCartCount(0)
+            return
+        }
+
+        api.get("/cart/cart-count")
+            .then(response => {
+                setCartCount(response.data.totalItems)
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }, [loggedIn])
 
     function handleSignOut() {
         api.get("/auth/logout")
@@ -57,7 +73,7 @@ export default function HeaderWithHamburger() {
                 <NavLink
                     className="hover:underline"
                     to="/cart" end>
-                    Cart
+                    {`Cart (${cartCount})`}
                 </NavLink>
                 {!loggedIn ? (
                     <NavLink
@@ -99,7 +115,7 @@ export default function HeaderWithHamburger() {
                     <NavLink
                         className="hover:underline"
                         to="/cart" end>
-                        Cart
+                        {`Cart (${cartCount})`}
                     </NavLink>
                     {!loggedIn ? (
                         <NavLink
