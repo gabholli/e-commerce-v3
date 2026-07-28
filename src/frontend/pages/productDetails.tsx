@@ -52,19 +52,23 @@ export default function ProductDetails() {
     }
 
     return (
-        <div className='product-details-layout gap-y-6 border-gray-300 border-2 rounded-2xl p-4 mx-2'>
-            <img className="product-image-area place-self-center size-64 object-scale-down"
-                src={product?.image}
-                alt="Product" />
-            <h1 className='self-end text-center font-extrabold product-title-area'>{product?.title}</h1>
-            <p className='self-center text-center product-price-area'>${Number(product?.price ?? 0).toFixed(2)}</p>
-            <p className='text-center product-description-area'>{product?.description}</p>
-            <button className='product-button-area rounded-2xl bg-green-300 hover:underline active:bg-green-400 py-3 px-6 md:w-56'
-                onClick={() => {
-                    toast.success("Item added to cart!")
-                }}>
-                Add to Cart
-            </button>
+        <div className='flex justify-center items-center flex-1'>
+
+            <div className='product-details-layout gap-y-6 border-gray-300 border-2 rounded-2xl p-4 mx-2'>
+                <img className="product-image-area place-self-center size-64 object-scale-down"
+                    src={product?.image}
+                    alt="Product" />
+                <h1 className='self-end text-center font-extrabold product-title-area'>{product?.title}</h1>
+                <p className='self-center text-center product-price-area'>${Number(product?.price ?? 0).toFixed(2)}</p>
+                <p className='text-center product-description-area'>{product?.description}</p>
+                <button className='product-button-area rounded-2xl bg-green-300 hover:underline active:bg-green-400 py-3 px-6 md:w-56'
+                    onClick={() => {
+                        toast.success("Item added to cart!")
+                    }}>
+                    Add to Cart
+                </button>
+            </div>
         </div>
+
     )
 }

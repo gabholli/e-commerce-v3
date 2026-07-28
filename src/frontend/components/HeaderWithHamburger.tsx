@@ -96,6 +96,11 @@ export default function HeaderWithHamburger() {
                         to="/" end>
                         Home
                     </NavLink>
+                    <NavLink
+                        className="hover:underline"
+                        to="/cart" end>
+                        Cart
+                    </NavLink>
                     {!loggedIn ? (
                         <NavLink
                             className="hover:underline"
