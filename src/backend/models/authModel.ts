@@ -1,4 +1,4 @@
-import getDBConnection from "../db/db";
+import getDBConnection from "../db/db.ts";
 
 export async function findUserByEmail(email: string) {
     const db = await getDBConnection()
