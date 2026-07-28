@@ -1,7 +1,7 @@
 import validator from "validator"
 import type { Request, Response } from "express"
-import getDBConnection from "../db/db.ts"
 import bcrypt from "bcryptjs"
+import { createUser, findUserByEmail, findUserIdByEmail } from "../models/authModel.ts"
 
 export async function registerUser(req: Request, res: Response) {
 
@@ -24,11 +24,7 @@ export async function registerUser(req: Request, res: Response) {
 
     try {
 
-        const db = await getDBConnection()
-
-        const existing = await db.get("SELECT id FROM users WHERE email = ?",
-            [email]
-        )
+        const existing = await findUserIdByEmail(email)
 
         if (existing) {
             return res.status(400).json({ error: "Email already in use" })
@@ -36,8 +32,7 @@ export async function registerUser(req: Request, res: Response) {
 
         const hashed = await bcrypt.hash(password, 10)
 
-        const result = await db.run('INSERT INTO users (email, password) VALUES (?, ?)',
-            [email, hashed])
+        const result = await createUser(email, hashed)
 
         req.session.userId = result.lastID
 
@@ -65,17 +60,15 @@ export async function loginUser(req: Request, res: Response) {
 
     try {
 
-        const db = await getDBConnection()
-
-        const user = await db.get("SELECT * FROM users WHERE email = ?", [email])
+        const user = await findUserByEmail(email)
 
         if (!user) {
             return res.status(401).json({ error: "Invalid credentials" })
         }
 
-        const isvalid = await bcrypt.compare(password, user.password)
+        const isValid = await bcrypt.compare(password, user.password)
 
-        if (!isvalid) {
+        if (!isValid) {
 
             return res.status(401).json({ error: "Invalid credentials" })
 
