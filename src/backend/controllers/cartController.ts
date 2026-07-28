@@ -1,5 +1,5 @@
 import { type Request, type Response } from "express"
-import { checkExistingInCartQuery, deleteAllFromCartQuery, deleteCartItemQuery, getAllFromCartQuery, getCountFromCartQuery, insertIntoCartQuery, selectCartItemQuantityQuery, updateCartQuery } from "../models/cartModels"
+import { checkExistingInCartQuery, deleteAllFromCartQuery, deleteCartItemQuery, getAllFromCartQuery, getCountFromCartQuery, insertIntoCartQuery, selectCartItemQuantityQuery, updateCartQuery } from "../models/cartModels.ts"
 
 export async function addToCart(req: Request, res: Response) {
 
