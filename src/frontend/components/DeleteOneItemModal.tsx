@@ -1,5 +1,5 @@
 
-export default function DeleteModal(
+export default function DeleteOneItemModal(
     {
         isVisible,
         onClose,
