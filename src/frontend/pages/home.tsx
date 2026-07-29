@@ -61,9 +61,8 @@ export default function Home() {
         )
     })
 
-    if (loading) {
-        return <Loading />
-    }
+    if (loading) return <Loading />
+
 
     return (
         <main className="flex flex-col justify-center md:items-start items-center
