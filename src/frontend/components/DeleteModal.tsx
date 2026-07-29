@@ -34,7 +34,7 @@ export default function DeleteModal(
                     X
                 </button>
                 <div className="bg-neutral-200 p-4 md:text-2xl">
-                    <h1>Are you sure you want to delete this breed?</h1>
+                    <h1>Are you sure you want to delete this item?</h1>
                     <div className="flex justify-center items-center gap-x-4">
                         <button onClick={deleteCartItem}>Yes</button>
                         <button onClick={() => onClose()}>No</button>
