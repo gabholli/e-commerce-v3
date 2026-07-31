@@ -1,21 +1,17 @@
-import getDBConnection from "../db/db.ts";
+import db from "../db/connect.ts";
 
 export async function findUserByEmail(email: string) {
-    const db = await getDBConnection()
-
-    return db.get("SELECT * FROM users WHERE email = ?",
-        [email])
+    let collection = db.collection("users")
+    return collection.findOne({ email })
 }
 
 export async function findUserIdByEmail(email: string) {
-    const db = await getDBConnection()
 
     return db.get("SELECT id FROM users WHERE email = ?",
         [email])
 }
 
 export async function createUser(email: string, hashedPassword: string) {
-    const db = await getDBConnection()
 
     return db.run('INSERT INTO users (email, password) VALUES (?, ?)',
         [email, hashedPassword])
