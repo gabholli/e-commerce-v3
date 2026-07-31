@@ -1,61 +1,61 @@
-import getDBConnection from "../db/db.ts";
+// import getDBConnection from "../db/db.ts";
 
-export async function checkExistingInCartQuery(userId: number, productId: number) {
-    const db = await getDBConnection()
+// export async function checkExistingInCartQuery(userId: number, productId: number) {
+//     const db = await getDBConnection()
 
-    return db.get('SELECT * FROM cart_items WHERE user_id = ? AND product_id = ?',
-        [userId, productId])
-}
+//     return db.get('SELECT * FROM cart_items WHERE user_id = ? AND product_id = ?',
+//         [userId, productId])
+// }
 
-export async function updateCartQuery(id: number, userId: number) {
-    const db = await getDBConnection()
+// export async function updateCartQuery(id: number, userId: number) {
+//     const db = await getDBConnection()
 
-    return db.run('UPDATE cart_items SET quantity = quantity + 1 WHERE id = ? AND user_id = ?',
-        [id, userId])
-}
+//     return db.run('UPDATE cart_items SET quantity = quantity + 1 WHERE id = ? AND user_id = ?',
+//         [id, userId])
+// }
 
-export async function insertIntoCartQuery(userId: number, productId: number) {
-    const db = await getDBConnection()
+// export async function insertIntoCartQuery(userId: number, productId: number) {
+//     const db = await getDBConnection()
 
-    return db.run('INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, 1)',
-        [userId, productId])
-}
+//     return db.run('INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, 1)',
+//         [userId, productId])
+// }
 
-export async function getCountFromCartQuery(sessionId: number) {
-    const db = await getDBConnection()
+// export async function getCountFromCartQuery(sessionId: number) {
+//     const db = await getDBConnection()
 
-    return db.get(`SELECT SUM(quantity) AS totalItems FROM cart_items WHERE user_id = ?`,
-        [sessionId])
-}
+//     return db.get(`SELECT SUM(quantity) AS totalItems FROM cart_items WHERE user_id = ?`,
+//         [sessionId])
+// }
 
-export async function getAllFromCartQuery(sessionId: number) {
-    const db = await getDBConnection()
+// export async function getAllFromCartQuery(sessionId: number) {
+//     const db = await getDBConnection()
 
-    return db.all(
-        `SELECT id AS cartItemId, quantity, product_id AS productId 
-         FROM cart_items 
-         WHERE user_id = ?`,
-        [sessionId]
-    )
-}
+//     return db.all(
+//         `SELECT id AS cartItemId, quantity, product_id AS productId
+//          FROM cart_items
+//          WHERE user_id = ?`,
+//         [sessionId]
+//     )
+// }
 
-export async function selectCartItemQuantityQuery(itemId: number, sessionId: number) {
-    const db = await getDBConnection()
+// export async function selectCartItemQuantityQuery(itemId: number, sessionId: number) {
+//     const db = await getDBConnection()
 
-    return db.get('SELECT quantity FROM cart_items WHERE id = ? AND user_id = ?',
-        [itemId, sessionId])
-}
+//     return db.get('SELECT quantity FROM cart_items WHERE id = ? AND user_id = ?',
+//         [itemId, sessionId])
+// }
 
-export async function deleteCartItemQuery(itemId: number, sessionId: number) {
-    const db = await getDBConnection()
+// export async function deleteCartItemQuery(itemId: number, sessionId: number) {
+//     const db = await getDBConnection()
 
-    return db.run('DELETE FROM cart_items WHERE id = ? AND user_id = ?',
-        [itemId, sessionId])
-}
+//     return db.run('DELETE FROM cart_items WHERE id = ? AND user_id = ?',
+//         [itemId, sessionId])
+// }
 
-export async function deleteAllFromCartQuery(sessionId: number) {
-    const db = await getDBConnection()
+// export async function deleteAllFromCartQuery(sessionId: number) {
+//     const db = await getDBConnection()
 
-    return db.run('DELETE FROM cart_items WHERE user_id = ?',
-        [sessionId])
-}
+//     return db.run('DELETE FROM cart_items WHERE user_id = ?',
+//         [sessionId])
+// }

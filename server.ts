@@ -1,11 +1,10 @@
 import "dotenv/config"
 import express from "express"
 import cors from "cors"
-import createTable from "./src/backend/createTable.ts"
 import session from "express-session"
 import { authRouter } from "./src/backend/routes/authRoutes.ts"
 import { meRouter } from "./src/backend/routes/meRoutes.ts"
-import { cartRouter } from "./src/backend/routes/cartRoutes.ts"
+// import { cartRouter } from "./src/backend/routes/cartRoutes.ts"
 import MongoStore from "connect-mongo"
 
 const app = express()
@@ -50,7 +49,7 @@ app.use(session({
 
 app.use("/auth/me", meRouter)
 app.use("/auth", authRouter)
-app.use("/cart", cartRouter)
+// app.use("/cart", cartRouter)
 
 app.use((_req, res) => {
     res.send("Server here for e-commerce site...")
