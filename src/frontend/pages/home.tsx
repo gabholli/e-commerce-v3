@@ -4,6 +4,7 @@ import axios from "axios"
 import type { allProductsInterface } from "../../types/types"
 import SideMenu from "../components/SideMenu"
 import { Link, useLocation } from "react-router"
+import toast from "react-hot-toast"
 
 export default function Home() {
 
@@ -53,6 +54,9 @@ export default function Home() {
                     </div>
                 </Link>
                 <button
+                    onClick={() => {
+                        toast.success("Item added to cart!")
+                    }}>
                     className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline"
                 >Add to cart
                 </button>
