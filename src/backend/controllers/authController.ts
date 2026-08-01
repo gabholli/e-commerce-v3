@@ -34,7 +34,7 @@ export async function registerUser(req: Request, res: Response) {
 
         const result = await createUser(email, hashed)
 
-        req.session.userId = result.lastID
+        req.session.userId = result.upsertedId?.toString()
 
         res.status(201).json({ message: "User registered" })
 
@@ -74,7 +74,7 @@ export async function loginUser(req: Request, res: Response) {
 
         }
 
-        req.session.userId = user.id
+        req.session.userId = user._id.toString()
 
         res.json({ message: "Logged in" })
 

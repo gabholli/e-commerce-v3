@@ -1,61 +1,99 @@
 // import getDBConnection from "../db/db.ts";
+import { ObjectId } from "mongodb"
+import db from "../db/connect"
 
-// export async function checkExistingInCartQuery(userId: number, productId: number) {
-//     const db = await getDBConnection()
+export async function checkExistingInCartQuery(userId: string, productId: number) {
+    const collection = db.collection("cart")
 
-//     return db.get('SELECT * FROM cart_items WHERE user_id = ? AND product_id = ?',
-//         [userId, productId])
-// }
+    return collection.findOne({
+        userId,
+        productId
+    })
+}
 
-// export async function updateCartQuery(id: number, userId: number) {
-//     const db = await getDBConnection()
+export async function updateCartQuery(itemId: string, userId: string) {
+    const collection = db.collection("cart")
+    return collection.updateOne(
+        {
+            _id: new ObjectId(itemId),
+            userId: userId
+        },
+        {
+            $inc: { quantity: 1 }
+        }
+    )
+}
 
-//     return db.run('UPDATE cart_items SET quantity = quantity + 1 WHERE id = ? AND user_id = ?',
-//         [id, userId])
-// }
+export async function insertIntoCartQuery(
+    userId: string,
+    productId: number,
+    title: string,
+    price: number,
+    image: string,
+) {
 
-// export async function insertIntoCartQuery(userId: number, productId: number) {
-//     const db = await getDBConnection()
+    const collection = db.collection("cart")
 
-//     return db.run('INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, 1)',
-//         [userId, productId])
-// }
+    return collection.insertOne({
+        userId,
+        productId,
+        title,
+        price,
+        image,
+        quantity: 1
+    })
+}
 
-// export async function getCountFromCartQuery(sessionId: number) {
-//     const db = await getDBConnection()
+export async function getCountFromCartQuery(userId: string) {
+    const collection = db.collection("cart")
 
-//     return db.get(`SELECT SUM(quantity) AS totalItems FROM cart_items WHERE user_id = ?`,
-//         [sessionId])
-// }
+    const result = await collection.aggregate([
+        { $match: { userId: userId } },
+        {
+            $group: {
+                _id: null,
+                totalItems: { $sum: "$quantity" }
+            }
+        }
+    ]).toArray()
 
-// export async function getAllFromCartQuery(sessionId: number) {
-//     const db = await getDBConnection()
+    return result[0] || { totalItems: 0 }
+}
 
-//     return db.all(
-//         `SELECT id AS cartItemId, quantity, product_id AS productId
-//          FROM cart_items
-//          WHERE user_id = ?`,
-//         [sessionId]
-//     )
-// }
+export async function getAllFromCartQuery(userId: string) {
+    const collection = db.collection("cart")
+    return collection
+        .find({ userId })
+        .toArray()
+}
 
-// export async function selectCartItemQuantityQuery(itemId: number, sessionId: number) {
-//     const db = await getDBConnection()
+export async function selectCartItemQuantityQuery(itemId: string, userId: string) {
+    const collection = db.collection("cart")
 
-//     return db.get('SELECT quantity FROM cart_items WHERE id = ? AND user_id = ?',
-//         [itemId, sessionId])
-// }
+    return collection.findOne(
+        {
+            _id: new ObjectId(itemId),
+            userId
+        },
+        {
+            projection: { quantity: 1 }
+        }
+    )
+}
 
-// export async function deleteCartItemQuery(itemId: number, sessionId: number) {
-//     const db = await getDBConnection()
+export async function deleteCartItemQuery(itemId: string, userId: string) {
+    const collection = db.collection("cart")
 
-//     return db.run('DELETE FROM cart_items WHERE id = ? AND user_id = ?',
-//         [itemId, sessionId])
-// }
+    return collection
+        .deleteOne({
+            _id: new ObjectId(itemId),
+            userId
+        })
+}
 
-// export async function deleteAllFromCartQuery(sessionId: number) {
-//     const db = await getDBConnection()
+export async function deleteAllFromCartQuery(userId: string) {
+    const collection = db.collection("cart")
 
-//     return db.run('DELETE FROM cart_items WHERE user_id = ?',
-//         [sessionId])
-// }
+    return collection
+        .deleteMany({ userId })
+}
