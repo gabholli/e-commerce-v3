@@ -30,7 +30,6 @@ export default function Cart() {
 
     if (loading) return <Loading />
 
-
     return (
         <main>
 
