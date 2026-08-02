@@ -5,6 +5,7 @@ import session from "express-session"
 import { authRouter } from "./src/backend/routes/authRoutes.ts"
 import { meRouter } from "./src/backend/routes/meRoutes.ts"
 import { cartRouter } from "./src/backend/routes/cartRoutes.ts"
+import { paymentRouter } from "./src/backend/routes/paymentRoutes.ts"
 import MongoStore from "connect-mongo"
 
 const app = express()
@@ -50,6 +51,7 @@ app.use(session({
 app.use("/auth/me", meRouter)
 app.use("/auth", authRouter)
 app.use("/cart", cartRouter)
+app.use("/payment", paymentRouter)
 
 app.use((_req, res) => {
     res.send("Server here for e-commerce site...")
