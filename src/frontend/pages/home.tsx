@@ -56,7 +56,7 @@ export default function Home() {
                 <button
                     onClick={() => {
                         toast.success("Item added to cart!")
-                    }}>
+                    }}
                     className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline"
                 >Add to cart
                 </button>
