@@ -1,7 +1,7 @@
 import { type Request, type Response } from "express"
 import {
     checkExistingInCartQuery, deleteAllFromCartQuery, deleteCartItemQuery,
-    getAllFromCartQuery, getCountFromCartQuery, insertIntoCartQuery,
+    getAllFromCartQuery, getTotalPriceFromCartQuery, insertIntoCartQuery,
     selectCartItemQuantityQuery, updateCartQuery
 } from "../models/cartModels.ts"
 
@@ -31,16 +31,16 @@ export async function addToCart(req: Request, res: Response) {
 
 }
 
-export async function getCartCount(req: Request, res: Response) {
+export async function getTotalPrice(req: Request, res: Response) {
     const userId = req.session.userId
 
     if (!userId) {
         return res.status(401).json({ error: 'Unauthorized' })
     }
 
-    const result = await getCountFromCartQuery(userId)
+    const result = await getTotalPriceFromCartQuery(userId)
 
-    res.json({ totalItems: result.totalItems || 0 })
+    res.json({ totalPrice: result.totalPrice || 0 })
 }
 
 export async function getAll(req: Request, res: Response) {

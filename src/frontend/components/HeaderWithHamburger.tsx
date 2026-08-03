@@ -9,7 +9,7 @@ export default function HeaderWithHamburger() {
 
     const { loggedIn, setLoggedIn } = UserAuth()
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const [cartCount, setCartCount] = useState<number>(0)
+    const [cartTotal, setCartTotal] = useState<number>(0)
 
     let menuRef = useRef<HTMLDivElement>(null)
 
@@ -29,13 +29,13 @@ export default function HeaderWithHamburger() {
 
     useEffect(() => {
         if (!loggedIn) {
-            setCartCount(0)
+            setCartTotal(0)
             return
         }
 
-        api.get("/cart/cart-count")
+        api.get("/cart/total-price")
             .then(response => {
-                setCartCount(response.data.totalItems)
+                setCartTotal(response.data.totalPrice)
             })
             .catch(error => {
                 console.error(error)
@@ -73,7 +73,7 @@ export default function HeaderWithHamburger() {
                 <NavLink
                     className="hover:underline"
                     to="/cart" end>
-                    {`Cart (${cartCount})`}
+                    {`Cart ($${cartTotal.toFixed(2)})`}
                 </NavLink>
                 {!loggedIn ? (
                     <NavLink
@@ -115,7 +115,7 @@ export default function HeaderWithHamburger() {
                     <NavLink
                         className="hover:underline"
                         to="/cart" end>
-                        {`Cart (${cartCount})`}
+                        {`Cart ($${cartTotal.toFixed(2)})`}
                     </NavLink>
                     {!loggedIn ? (
                         <NavLink

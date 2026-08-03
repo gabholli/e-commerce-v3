@@ -44,7 +44,7 @@ export async function insertIntoCartQuery(
     })
 }
 
-export async function getCountFromCartQuery(userId: string) {
+export async function getTotalPriceFromCartQuery(userId: string) {
     const collection = db.collection("cart")
 
     const result = await collection.aggregate([
@@ -52,12 +52,13 @@ export async function getCountFromCartQuery(userId: string) {
         {
             $group: {
                 _id: null,
-                totalItems: { $sum: "$quantity" }
+                totalPrice: {
+                    $sum: { $multiply: ["$price", "$quantity"] }
+                }
             }
-        }
     ]).toArray()
 
-    return result[0] || { totalItems: 0 }
+    return result[0] || { totalPrice: 0 }
 }
 
 export async function getAllFromCartQuery(userId: string) {

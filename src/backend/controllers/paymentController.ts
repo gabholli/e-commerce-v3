@@ -1,5 +1,6 @@
 import type { Request, Response } from "express"
 import Stripe from "stripe"
+import { getTotalPriceFromCartQuery } from "../models/cartModels"
 
 if (!process.env.STRIPE_SECRET_KEY) {
     throw new Error("STRIPE_SECRET_KEY environment variable is not set!")
@@ -14,9 +15,16 @@ export async function makePayment(req: Request, res: Response) {
         return res.status(401).json({ error: "Unauthorized" })
     }
 
-    let { amount, id } = req.body
+    let { id } = req.body
 
     try {
+        const cartTotal = await getTotalPriceFromCartQuery(userId)
+        const amount = Math.round(cartTotal.totalPrice * 100)
+
+        if (amount <= 0) {
+            return res.status(400).json({ error: "Cart is empty" })
+        }
+
         const payment = await stripe.paymentIntents.create({
             amount,
             currency: "USD",
