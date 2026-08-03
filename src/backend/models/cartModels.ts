@@ -56,6 +56,7 @@ export async function getTotalPriceFromCartQuery(userId: string) {
                     $sum: { $multiply: ["$price", "$quantity"] }
                 }
             }
+        }
     ]).toArray()
 
     return result[0] || { totalPrice: 0 }
