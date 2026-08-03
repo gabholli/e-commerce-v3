@@ -8,7 +8,8 @@ I built this mock e-commerce app using the following:
 - Tailwind CSS
 - Node.js
 - Express.js
-- SQLite
+- MongoDB
+- Stripe
 
 ## Getting Started
 ### Dependencies
