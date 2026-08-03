@@ -43,6 +43,7 @@ export default function Cart() {
                     <h1>Make Payment:</h1>
                     <StripeContainer
                         onBack={goBackToCartButton}
+                    // amount={Math.round(cartTotal * 100)}
                     />
                 </div>
             ) : (
