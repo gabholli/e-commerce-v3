@@ -9,6 +9,7 @@ I built this mock e-commerce app using the following:
 - Node.js
 - Express.js
 - MongoDB
+- Stripe
 
 ## Getting Started
 ### Dependencies
