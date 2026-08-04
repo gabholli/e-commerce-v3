@@ -28,6 +28,13 @@ export default function Cart() {
 
     }, [loggedIn])
 
+    useEffect(() => {
+        if (!loggedIn) {
+            setShowPayment(false)
+            setCartItems([])
+        }
+    }, [loggedIn])
+
     function goBackToCartButton() {
         setShowPayment(false)
     }
@@ -50,7 +57,7 @@ export default function Cart() {
                 <>
                     <button
                         onClick={() => setShowPayment(true)}
-                        disabled={cartItems.length === 0}
+                        disabled={cartItems.length === 0 || !loggedIn}
                     >
                         Make a payment
                     </button>
