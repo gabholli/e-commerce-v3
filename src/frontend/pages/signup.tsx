@@ -7,6 +7,8 @@ export default function SignUp() {
     const navigate = useNavigate()
 
     async function signUpSubmit(formData: FormData) {
+        let loadingToast: string = ""
+
         try {
             let emailValue = formData.get("email") as string
             let passwordValue = formData.get("password") as string
@@ -15,7 +17,7 @@ export default function SignUp() {
                 return
             }
 
-            const loadingToast = toast.loading("Connecting to server...")
+            loadingToast = toast.loading("Connecting to server...")
 
             const res = await api.post("/auth/register",
                 { email: emailValue, password: passwordValue })
@@ -27,6 +29,7 @@ export default function SignUp() {
 
         } catch (error: any) {
             console.error(error.message)
+            toast.dismiss(loadingToast)
             toast.error(error.response?.data?.error || "Error signing up.")
         }
     }

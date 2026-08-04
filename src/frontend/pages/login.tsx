@@ -10,12 +10,14 @@ export default function LogIn() {
     const navigate = useNavigate()
 
     async function loginSubmit(formData: FormData) {
+        let loadingToast: string = ""
+
         try {
             let emailValue = formData.get("email") as string
             let passwordValue = formData.get("password") as string
             if (!emailValue || !passwordValue) return
 
-            const loadingToast = toast.loading("Connecting to server...")
+            loadingToast = toast.loading("Connecting to server...")
 
             const response = await api.post("/auth/login",
                 { email: emailValue, password: passwordValue })
@@ -30,6 +32,7 @@ export default function LogIn() {
 
         } catch (error: any) {
             console.error(error.message)
+            toast.dismiss(loadingToast)
             toast.error(error.response?.data?.error || "Error logging in.")
         }
     }
