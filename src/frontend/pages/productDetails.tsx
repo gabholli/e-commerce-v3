@@ -2,8 +2,12 @@ import { useParams, Link } from 'react-router'
 import { useState, useEffect } from 'react'
 import toast from "react-hot-toast";
 import type { allProductsInterface } from '../../types/types';
+import { UserAuth } from '../context/AuthContext';
+import api from '../../backend/api';
 
 export default function ProductDetails() {
+
+    const { loggedIn, refreshCart } = UserAuth()
 
     const { id } = useParams()
 
@@ -31,6 +35,27 @@ export default function ProductDetails() {
         }
         fetchProductDetail()
     }, [id])
+
+    async function handleAddClick() {
+        if (!product) return
+
+        try {
+            if (!loggedIn) {
+                toast.error("Please log in to add to cart")
+                return
+            }
+            const response = await api.post("/cart/add", {
+                productId: product.id,
+                title: product.title,
+                price: product.price,
+                image: product.image
+            })
+            toast.success(response.data.message)
+            refreshCart()
+        } catch (error: any) {
+            toast.error(error.response?.data?.error || "Error adding to cart")
+        }
+    }
 
     if (loading) {
         return (
@@ -62,13 +87,11 @@ export default function ProductDetails() {
                 <p className='self-center text-center product-price-area'>${Number(product?.price ?? 0).toFixed(2)}</p>
                 <p className='text-center product-description-area'>{product?.description}</p>
                 <button className='product-button-area rounded-2xl bg-green-300 hover:underline active:bg-green-400 py-3 px-6 md:w-56'
-                    onClick={() => {
-                        toast.success("Item added to cart!")
-                    }}>
+                    onClick={handleAddClick}>
                     Add to Cart
                 </button>
             </div>
-        </div>
+        </div >
 
     )
 }

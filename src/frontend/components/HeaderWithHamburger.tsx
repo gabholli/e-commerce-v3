@@ -7,9 +7,8 @@ import toast from "react-hot-toast";
 
 export default function HeaderWithHamburger() {
 
-    const { loggedIn, setLoggedIn } = UserAuth()
+    const { loggedIn, setLoggedIn, cartTotal } = UserAuth()
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const [cartTotal, setCartTotal] = useState<number>(0)
 
     let menuRef = useRef<HTMLDivElement>(null)
 
@@ -26,21 +25,6 @@ export default function HeaderWithHamburger() {
             document.removeEventListener("mousedown", handler)
         }
     }, [])
-
-    useEffect(() => {
-        if (!loggedIn) {
-            setCartTotal(0)
-            return
-        }
-
-        api.get("/cart/total-price")
-            .then(response => {
-                setCartTotal(response.data.totalPrice)
-            })
-            .catch(error => {
-                console.error(error)
-            })
-    }, [loggedIn])
 
     function handleSignOut() {
         api.get("/auth/logout")

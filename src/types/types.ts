@@ -10,4 +10,6 @@ export interface allProductsInterface {
 export interface AuthContextType {
     loggedIn: boolean
     setLoggedIn: (value: boolean) => void
+    cartTotal: number
+    refreshCart: () => void
 }
