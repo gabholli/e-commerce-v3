@@ -58,8 +58,7 @@ export default function PaymentForm({ onBack, amount }: { onBack: () => void, am
                 if (response.data.success) {
                     await api.delete("/cart/all")
                     refreshCart()
-                    toast.success("Payment successful! Thank you for your order.")
-                    navigate("/")
+                    navigate("/success")
                 }
             } catch (error: any) {
                 toast.error(error.response?.data?.error || "Payment failed. Please try again")

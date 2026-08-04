@@ -7,6 +7,7 @@ import Login from './frontend/pages/login'
 import ProductDetails from './frontend/pages/productDetails'
 import NotFound from './frontend/pages/notFound'
 import SignUp from './frontend/pages/signup'
+import Success from './frontend/pages/success'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="cart" element={<Cart />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
+        <Route path="success" element={<Success />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
