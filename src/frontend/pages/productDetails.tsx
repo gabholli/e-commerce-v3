@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import toast from "react-hot-toast";
 import type { allProductsInterface } from '../../types/types';
 import { UserAuth } from '../context/AuthContext';
-import api from '../../backend/api';
+import api from '../../frontend/api';
 
 export default function ProductDetails() {
 

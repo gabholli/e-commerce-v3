@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import { UserAuth } from "../context/AuthContext";
-import api from "../../backend/api";
+import api from "../../frontend/api";
 
 export default function LogIn() {
 

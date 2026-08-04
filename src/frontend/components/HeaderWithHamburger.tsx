@@ -2,7 +2,7 @@ import { NavLink } from "react-router";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useRef, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
-import api from "../../backend/api";
+import api from "../../frontend/api";
 import toast from "react-hot-toast";
 
 export default function HeaderWithHamburger() {
