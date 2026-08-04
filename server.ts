@@ -6,7 +6,7 @@ import { authRouter } from "./src/backend/routes/authRoutes.ts"
 import { meRouter } from "./src/backend/routes/meRoutes.ts"
 import { cartRouter } from "./src/backend/routes/cartRoutes.ts"
 import { paymentRouter } from "./src/backend/routes/paymentRoutes.ts"
-// import MongoStore from "connect-mongo"
+import MongoStore from "connect-mongo"
 
 const app = express()
 
@@ -35,9 +35,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(session({
-    // store: MongoStore.create({
-    //     mongoUrl: mongoUri
-    // }),
+    store: MongoStore.create({
+        mongoUrl: mongoUri
+    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
