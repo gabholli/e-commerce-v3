@@ -13,7 +13,7 @@ const app = express()
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        "https://gabholli-e-commerce-site.netlify.app/"
+        "https://gabholli-e-commerce-site.netlify.app"
     ],
     credentials: true
 }))
