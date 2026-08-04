@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import api from "../../backend/api"
+import api from "../../frontend/api"
 import Loading from "../components/Loading"
 import { UserAuth } from "../context/AuthContext"
 import StripeContainer from "../components/StripeContainer"
@@ -17,11 +17,11 @@ export default function Cart() {
 
         setLoading(true)
         api.get('/cart')
-            .then(response => {
+            .then((response: any) => {
                 setCartItems(response.data.items)
                 setLoading(false)
             })
-            .catch(error => {
+            .catch((error: any) => {
                 console.error(error)
                 setLoading(false)
             })
