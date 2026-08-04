@@ -1,52 +1,52 @@
 import { type Request, type Response } from "express"
 import {
     checkExistingInCartQuery, deleteAllFromCartQuery, deleteCartItemQuery,
-    getAllFromCartQuery, getCountFromCartQuery, insertIntoCartQuery,
+    getAllFromCartQuery, getTotalPriceFromCartQuery, insertIntoCartQuery,
     selectCartItemQuantityQuery, updateCartQuery
 } from "../models/cartModels.ts"
 
 export async function addToCart(req: Request, res: Response) {
+    const productId = Number(req.body.productId)
+    const { title, price, image } = req.body
 
-    const productId = parseInt(req.body.productId, 10)
-
-    if (isNaN(productId)) {
+    if (!productId) {
         return res.status(400).json({ error: 'Invalid product ID' })
     }
 
     const userId = req.session.userId
 
-    if (typeof userId !== 'number') {
+    if (!userId) {
         return res.status(401).json({ error: 'Unauthorized' })
     }
 
     const existing = await checkExistingInCartQuery(userId, productId)
 
     if (existing) {
-        await updateCartQuery(existing.id, userId)
+        await updateCartQuery(existing._id.toString(), userId)
+        res.json({ inserted: false, message: "Cart updated" })
     } else {
-        await insertIntoCartQuery(userId, productId)
+        await insertIntoCartQuery(userId, productId, title, price, image)
+        res.json({ inserted: true, message: "Added to cart" })
     }
-
-    res.json({ message: 'Added to cart' })
 
 }
 
-export async function getCartCount(req: Request, res: Response) {
+export async function getTotalPrice(req: Request, res: Response) {
     const userId = req.session.userId
 
-    if (typeof userId !== 'number') {
+    if (!userId) {
         return res.status(401).json({ error: 'Unauthorized' })
     }
 
-    const result = await getCountFromCartQuery(userId)
+    const result = await getTotalPriceFromCartQuery(userId)
 
-    res.json({ totalItems: result.totalItems || 0 })
+    res.json({ totalPrice: result.totalPrice || 0 })
 }
 
 export async function getAll(req: Request, res: Response) {
     const userId = req.session.userId
 
-    if (typeof userId !== 'number') {
+    if (!userId) {
         return res.status(401).json({ error: 'Unauthorized' })
     }
 
@@ -57,21 +57,15 @@ export async function getAll(req: Request, res: Response) {
 
 export async function deleteItem(req: Request, res: Response) {
 
-    const rawItemId = req.params.itemId
+    const itemId = req.params.itemId as string
 
-    if (typeof rawItemId !== "string") {
-        return res.status(400).json({ error: "Invalid item ID" })
-    }
-
-    const itemId = parseInt(rawItemId, 10)
-
-    if (isNaN(itemId)) {
+    if (!itemId) {
         return res.status(400).json({ error: 'Invalid item ID' })
     }
 
     const userId = req.session.userId
 
-    if (typeof userId !== "number") {
+    if (!userId) {
         return res.status(401).json({ error: "Unauthorized" })
     }
 
@@ -91,7 +85,7 @@ export async function deleteAll(req: Request, res: Response) {
 
     const userId = req.session.userId
 
-    if (typeof userId !== "number") {
+    if (!userId) {
         return res.status(401).json({ error: "Unauthorized" })
     }
 

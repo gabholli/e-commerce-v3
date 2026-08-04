@@ -4,8 +4,13 @@ import axios from "axios"
 import type { allProductsInterface } from "../../types/types"
 import SideMenu from "../components/SideMenu"
 import { Link, useLocation } from "react-router"
+import toast from "react-hot-toast"
+import { UserAuth } from "../context/AuthContext"
+import api from "../../backend/api"
 
 export default function Home() {
+
+    const { loggedIn, refreshCart } = UserAuth()
 
     const [products, setProducts] = useState<allProductsInterface[]>()
     const [loading, setLoading] = useState<boolean>(false)
@@ -30,6 +35,25 @@ export default function Home() {
 
     }, [])
 
+    async function handleAddClick(productId: number, title: string, price: number, image: string) {
+        try {
+            if (!loggedIn) {
+                toast.error("Please log in to add to cart")
+                return
+            }
+            const response = await api.post("/cart/add", {
+                productId,
+                title,
+                price,
+                image
+            })
+            toast.success(response.data.message)
+            refreshCart()
+        } catch (error: any) {
+            toast.error(error.response?.data?.error || "Error adding to cart")
+        }
+    }
+
     const allProducts = filteredResults?.map((product) => {
         return (
             <div
@@ -53,6 +77,9 @@ export default function Home() {
                     </div>
                 </Link>
                 <button
+                    onClick={() => {
+                        handleAddClick(product.id, product.title, product.price, product.image)
+                    }}
                     className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline"
                 >Add to cart
                 </button>
@@ -62,7 +89,6 @@ export default function Home() {
     })
 
     if (loading) return <Loading />
-
 
     return (
         <main className="flex flex-col justify-center md:items-start items-center
