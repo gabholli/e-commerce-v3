@@ -23,11 +23,11 @@ export async function addToCart(req: Request, res: Response) {
 
     if (existing) {
         await updateCartQuery(existing._id.toString(), userId)
+        res.json({ inserted: false, message: "Cart updated" })
     } else {
         await insertIntoCartQuery(userId, productId, title, price, image)
+        res.json({ inserted: true, message: "Added to cart" })
     }
-
-    res.json({ message: 'Added to cart' })
 
 }
 
