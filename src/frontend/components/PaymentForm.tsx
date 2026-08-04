@@ -1,5 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
-import api from "../../backend/api"
+import api from "../../frontend/api"
 import React from "react"
 import type { StripeCardElementOptions } from "@stripe/stripe-js"
 import { useNavigate } from "react-router"
