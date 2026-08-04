@@ -1,4 +1,4 @@
-import api from "../backend/api"
+import api from "../frontend/api"
 
 export async function checkAuth() {
     try {

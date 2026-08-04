@@ -6,7 +6,7 @@ import SideMenu from "../components/SideMenu"
 import { Link, useLocation } from "react-router"
 import toast from "react-hot-toast"
 import { UserAuth } from "../context/AuthContext"
-import api from "../../backend/api"
+import api from "../../frontend/api"
 
 export default function Home() {
 
