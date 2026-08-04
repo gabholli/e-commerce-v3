@@ -1,6 +1,6 @@
 // import getDBConnection from "../db/db.ts";
 import { ObjectId } from "mongodb"
-import db from "../db/connect"
+import db from "../db/connect.ts"
 
 export async function checkExistingInCartQuery(userId: string, productId: number) {
     const collection = db.collection("cart")

@@ -1,6 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import api from "../../backend/api"
-import React, { useState } from "react"
+import React from "react"
 import type { StripeCardElementOptions } from "@stripe/stripe-js"
 import { useNavigate } from "react-router"
 import { UserAuth } from "../context/AuthContext"
