@@ -9,19 +9,24 @@ export default function SignUp() {
     async function signUpSubmit(formData: FormData) {
         let loadingToast: string = ""
 
+        const loadingTimer = setTimeout(() => {
+            loadingToast = toast.loading("Connecting to server...")
+        }, 1000)
+
         try {
             let emailValue = formData.get("email") as string
             let passwordValue = formData.get("password") as string
             if (!emailValue || !passwordValue) {
                 toast.error("Please fill out all fields.")
+                clearTimeout(loadingTimer)
                 return
             }
 
-            loadingToast = toast.loading("Connecting to server...")
 
             const res = await api.post("/auth/register",
                 { email: emailValue, password: passwordValue })
 
+            clearTimeout(loadingTimer)
             toast.dismiss(loadingToast)
 
             toast.success(res.data.message)
@@ -29,6 +34,7 @@ export default function SignUp() {
 
         } catch (error: any) {
             console.error(error.message)
+            clearTimeout(loadingTimer)
             toast.dismiss(loadingToast)
             toast.error(error.response?.data?.error || "Error signing up.")
         }

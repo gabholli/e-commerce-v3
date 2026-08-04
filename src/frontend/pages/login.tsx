@@ -12,16 +12,23 @@ export default function LogIn() {
     async function loginSubmit(formData: FormData) {
         let loadingToast: string = ""
 
+        const loadingTimer = setTimeout(() => {
+            loadingToast = toast.loading("Connecting to server...")
+        }, 1000) as ReturnType<typeof setTimeout>
+
         try {
             let emailValue = formData.get("email") as string
             let passwordValue = formData.get("password") as string
-            if (!emailValue || !passwordValue) return
-
-            loadingToast = toast.loading("Connecting to server...")
+            if (!emailValue || !passwordValue) {
+                toast.error("Please fill out all fields.")
+                clearTimeout(loadingTimer)
+                return
+            }
 
             const response = await api.post("/auth/login",
                 { email: emailValue, password: passwordValue })
 
+            clearTimeout(loadingTimer)
             toast.dismiss(loadingToast)
 
             if (response.data.message) {
@@ -32,6 +39,7 @@ export default function LogIn() {
 
         } catch (error: any) {
             console.error(error.message)
+            clearTimeout(loadingTimer)
             toast.dismiss(loadingToast)
             toast.error(error.response?.data?.error || "Error logging in.")
         }
