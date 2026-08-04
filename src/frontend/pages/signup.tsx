@@ -14,8 +14,14 @@ export default function SignUp() {
                 toast.error("Please fill out all fields.")
                 return
             }
+
+            const loadingToast = toast.loading("Connecting to server...")
+
             const res = await api.post("/auth/register",
                 { email: emailValue, password: passwordValue })
+
+            toast.dismiss(loadingToast)
+
             toast.success(res.data.message)
             navigate("/")
 

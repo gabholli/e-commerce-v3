@@ -15,8 +15,12 @@ export default function LogIn() {
             let passwordValue = formData.get("password") as string
             if (!emailValue || !passwordValue) return
 
+            const loadingToast = toast.loading("Connecting to server...")
+
             const response = await api.post("/auth/login",
                 { email: emailValue, password: passwordValue })
+
+            toast.dismiss(loadingToast)
 
             if (response.data.message) {
                 setLoggedIn(true)
