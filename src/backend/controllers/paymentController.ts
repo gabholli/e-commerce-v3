@@ -11,11 +11,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 export async function makePayment(req: Request, res: Response) {
     const userId = req.session.userId
 
-    if (typeof userId !== "string") {
+    if (!userId) {
         return res.status(401).json({ error: "Unauthorized" })
     }
 
-    let { id } = req.body
+    const { id } = req.body
 
     try {
         const cartTotal = await getTotalPriceFromCartQuery(userId)
@@ -27,12 +27,16 @@ export async function makePayment(req: Request, res: Response) {
 
         const payment = await stripe.paymentIntents.create({
             amount,
-            currency: "USD",
+            currency: "usd",
             description: "E-commerce site",
             payment_method: id,
             confirm: true,
             metadata: {
                 userId
+            },
+            automatic_payment_methods: {
+                enabled: true,
+                allow_redirects: "never"
             }
         })
         console.log("Payment", payment)
