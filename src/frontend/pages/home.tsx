@@ -90,7 +90,6 @@ export default function Home() {
 
     if (loading) return <Loading />
 
-
     return (
         <main className="flex flex-col justify-center md:items-start items-center
             md:grid md:grid-cols-[1fr_200px] layout-dashboard p-6 gap-y-6">
