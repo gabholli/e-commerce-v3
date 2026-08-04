@@ -2,6 +2,8 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import { UserAuth } from "../context/AuthContext";
 import api from "../../frontend/api";
+import { useState } from "react";
+import Loading from "../components/Loading";
 
 export default function LogIn() {
 
@@ -9,27 +11,18 @@ export default function LogIn() {
 
     const navigate = useNavigate()
 
+    const [loading, setLoading] = useState<boolean>(false)
+
     async function loginSubmit(formData: FormData) {
-        let loadingToast: string = ""
-
-        const loadingTimer = setTimeout(() => {
-            loadingToast = toast.loading("Connecting to server...")
-        }, 1000) as ReturnType<typeof setTimeout>
-
         try {
             let emailValue = formData.get("email") as string
             let passwordValue = formData.get("password") as string
-            if (!emailValue || !passwordValue) {
-                toast.error("Please fill out all fields.")
-                clearTimeout(loadingTimer)
-                return
-            }
+            if (!emailValue || !passwordValue) return
+
+            setLoading(true)
 
             const response = await api.post("/auth/login",
                 { email: emailValue, password: passwordValue })
-
-            clearTimeout(loadingTimer)
-            toast.dismiss(loadingToast)
 
             if (response.data.message) {
                 setLoggedIn(true)
@@ -39,11 +32,13 @@ export default function LogIn() {
 
         } catch (error: any) {
             console.error(error.message)
-            clearTimeout(loadingTimer)
-            toast.dismiss(loadingToast)
             toast.error(error.response?.data?.error || "Error logging in.")
+        } finally {
+            setLoading(false)
         }
     }
+
+    if (loading) return <Loading />
 
     return (
         <main className="flex flex-1 justify-center items-center">
