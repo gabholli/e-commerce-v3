@@ -9,6 +9,7 @@ import { paymentRouter } from "./src/backend/routes/paymentRoutes.ts"
 import MongoStore from "connect-mongo"
 
 const app = express()
+app.set("trust proxy", 1)
 
 app.use(cors({
     origin: [
