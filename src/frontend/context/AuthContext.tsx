@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, useContext, useCallback } from "rea
 import type { ReactNode } from "react"
 import type { AuthContextType } from "../../types/types"
 import { checkAuth } from "../../utils/checkAuth"
-import api from "../../backend/api"
+import api from "../../frontend/api"
 
 const AuthContext = createContext<AuthContextType>({
     loggedIn: false,
@@ -31,7 +31,7 @@ export default function AuthContextProvider({ children }: { children: ReactNode 
         }
         api.get("/cart/total-price")
             .then(response => setCartTotal(response.data.totalPrice))
-            .catch(error => console.error(error))
+            .catch((error: any) => console.error(error))
     }, [loggedIn])
 
     useEffect(() => {
