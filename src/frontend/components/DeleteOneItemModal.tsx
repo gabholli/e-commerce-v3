@@ -49,7 +49,12 @@ export default function DeleteOneItemModal(
                     X
                 </button>
                 <div className="bg-neutral-200 p-4 md:text-2xl">
-                    <h1>Remove all {item.quantity === 1 ? null : item.quantity} of {item.title} from cart?</h1>
+                    <h1>
+                        {item.quantity === 1
+                            ? `Remove ${item.title} from cart?`
+                            : `Remove all ${item.quantity} of ${item.title} from cart?`
+                        }
+                    </h1>
                     <div className="flex justify-center items-center gap-x-4">
                         <button onClick={deleteCartItem}>Yes</button>
                         <button onClick={() => onClose()}>No</button>
