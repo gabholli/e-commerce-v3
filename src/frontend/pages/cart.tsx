@@ -105,7 +105,7 @@ export default function Cart() {
                         </div>
                     </>
                 )}
-                {selectedItem && (
+                {selectedItem !== null && (
                     <DeleteOneItemModal
                         isVisible={!!selectedItem}
                         onClose={() => setSelectedItem(null)}
