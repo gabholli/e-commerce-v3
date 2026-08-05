@@ -56,8 +56,18 @@ export default function DeleteOneItemModal(
                         }
                     </h1>
                     <div className="flex justify-center items-center gap-x-4">
-                        <button onClick={deleteCartItem}>Yes</button>
-                        <button onClick={() => onClose()}>No</button>
+                        <button
+                            className="hover:cursor-pointer"
+                            onClick={deleteCartItem}
+                        >
+                            Yes
+                        </button>
+                        <button
+                            className="hover:cursor-pointer"
+                            onClick={() => onClose()}
+                        >
+                            No
+                        </button>
                     </div>
                 </div>
 
