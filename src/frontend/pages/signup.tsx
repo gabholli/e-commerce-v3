@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import api from "../../frontend/api";
-import { useState } from "react";
+import { type FormEvent, useState } from "react";
 import Loading from "../components/Loading";
 
 export default function SignUp() {
@@ -10,7 +10,10 @@ export default function SignUp() {
 
     const [loading, setLoading] = useState<boolean>(false)
 
-    async function signUpSubmit(formData: FormData) {
+    async function signUpSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        const formData = new FormData(event.currentTarget)
+
         try {
             let emailValue = formData.get("email") as string
             let passwordValue = formData.get("password") as string
@@ -40,7 +43,7 @@ export default function SignUp() {
         <main className="flex flex-1 justify-center items-center">
             <form
                 className="max-w-md w-full p-4 md:p-20 flex flex-col gap-y-4 justify-center items-center"
-                action={signUpSubmit}
+                onSubmit={signUpSubmit}
             >
                 <h2 className="self-start font-bold text-lg">Sign Up</h2>
                 <p className="self-start text-lg">

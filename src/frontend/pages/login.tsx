@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import { UserAuth } from "../context/AuthContext";
 import api from "../../frontend/api";
-import { useState } from "react";
+import { type FormEvent, useState } from "react";
 import Loading from "../components/Loading";
 
 export default function LogIn() {
@@ -13,7 +13,10 @@ export default function LogIn() {
 
     const [loading, setLoading] = useState<boolean>(false)
 
-    async function loginSubmit(formData: FormData) {
+    async function loginSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+
+        const formData = new FormData(event.currentTarget)
         try {
             let emailValue = formData.get("email") as string
             let passwordValue = formData.get("password") as string
@@ -44,7 +47,7 @@ export default function LogIn() {
         <main className="flex flex-1 justify-center items-center">
             <form
                 className="max-w-md w-full m-auto p-4 md:p-20 flex flex-col gap-y-4 justify-center items-center"
-                action={loginSubmit}
+                onSubmit={loginSubmit}
             >
                 <h2 className="self-start font-bold text-lg">Sign In</h2>
                 <p className="self-start text-lg">
