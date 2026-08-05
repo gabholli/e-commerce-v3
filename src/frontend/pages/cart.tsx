@@ -49,13 +49,13 @@ export default function Cart() {
                 className="border-2 border-neutral-300 p-4 rounded-3xl
                 flex flex-col justify-center gap-y-4 md:w-md"
             >
-                <div>
+                <div className="flex flex-col h-full">
                     <img
                         className="h-80 object-scale-down mb-4 block m-auto"
                         src={product.image} alt="Product image" />
                     <div className="flex flex-col justify-center items-center gap-y-4">
                         <div>
-                            <h1 className="font-extrabold">{product.title}</h1>
+                            <h1 className="font-extrabold flex-1">{product.title}</h1>
                         </div>
                         <div className="flex justify-between gap-x-8">
                             <p className="">Quantity: {product.quantity}</p>
@@ -100,7 +100,7 @@ export default function Cart() {
                     </div>
                 ) : (
                     <>
-                        <div className="flex flex-wrap gap-8 justify-center items-center">
+                        <div className="flex flex-wrap gap-8 justify-center items-stretch">
                             {cartItemsMap}
                         </div>
                     </>
