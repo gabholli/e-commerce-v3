@@ -88,8 +88,8 @@ export default function Cart() {
     if (loading) return <Loading />
 
     return (
-        <main className="p-8 flex flex-col justify-center items-center gap-y-8">
-            <div className="flex flex-col flex-1 justify-center items-center">
+        <main className="p-8 flex flex-col flex-1 justify-center items-center gap-y-8">
+            <div className="flex flex-col justify-center items-center">
                 {showPayment ? (
                     <div>
                         <h1>Make Payment:</h1>
