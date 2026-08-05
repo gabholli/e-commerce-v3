@@ -3,14 +3,17 @@ import api from "../../frontend/api"
 import Loading from "../components/Loading"
 import { UserAuth } from "../context/AuthContext"
 import StripeContainer from "../components/StripeContainer"
+import type { allProductsInterface } from "../../types/types"
+import DeleteOneItemModal from "../components/DeleteOneItemModal"
 
 export default function Cart() {
 
-    const { loggedIn, cartTotal } = UserAuth()
+    const { loggedIn, cartTotal, refreshCart } = UserAuth()
 
     const [showPayment, setShowPayment] = useState<boolean>(false)
     const [cartItems, setCartItems] = useState<any>([])
     const [loading, setLoading] = useState<boolean>(false)
+    const [selectedItem, setSelectedItem] = useState<allProductsInterface | null>(null)
 
     useEffect(() => {
         if (!loggedIn) return
@@ -39,30 +42,92 @@ export default function Cart() {
         setShowPayment(false)
     }
 
+    const cartItemsMap = cartItems?.map((product: allProductsInterface) => {
+        return (
+            <div
+                key={product.productId}
+                className="border-2 border-neutral-300 p-4 rounded-3xl
+                flex flex-col justify-center gap-y-4 md:w-md"
+            >
+                <div>
+                    <img
+                        className="h-80 object-scale-down mb-4 block m-auto"
+                        src={product.image} alt="Product image" />
+                    <div className="flex flex-col justify-center items-center gap-y-4">
+                        <div>
+                            <h1 className="font-extrabold">{product.title}</h1>
+                        </div>
+                        <div className="flex justify-between gap-x-8">
+                            <p className="">Quantity: {product.quantity}</p>
+                            <p className="font-bold">${product.price * product.quantity}</p>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline"
+                    onClick={() => setSelectedItem(product)}
+                >
+                    Remove item
+                </button>
+            </div>
+        )
+    })
+
+    function handleDelete() {
+        if (!selectedItem) return
+        setCartItems((prev: any) => {
+            return prev.filter((cartItem: any) => cartItem._id !== selectedItem._id)
+        })
+        refreshCart()
+        setSelectedItem(null)
+
+    }
+
     console.log(cartItems)
 
     if (loading) return <Loading />
 
     return (
-        <main>
-            {showPayment ? (
-                <div>
-                    <h1>Make Payment:</h1>
-                    <StripeContainer
-                        onBack={goBackToCartButton}
-                        amount={Math.round(cartTotal * 100)}
+        <main className="p-8 flex flex-col justify-center items-center gap-y-8">
+            <div className="flex flex-col flex-1 justify-center items-center">
+                {showPayment ? (
+                    <div>
+                        <h1>Make Payment:</h1>
+                        <StripeContainer
+                            onBack={goBackToCartButton}
+                            amount={Math.round(cartTotal * 100)}
+                        />
+                    </div>
+                ) : (
+                    <>
+                        <div className="flex flex-wrap gap-8 justify-center items-center">
+                            {cartItemsMap}
+                        </div>
+                    </>
+                )}
+                {selectedItem && (
+                    <DeleteOneItemModal
+                        isVisible={!!selectedItem}
+                        onClose={() => setSelectedItem(null)}
+                        item={selectedItem}
+                        onDelete={handleDelete}
                     />
+                )}
+
+            </div>
+            {cartItems.length > 0 ? (
+                <button
+                    className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline w-40 block m-auto"
+                    onClick={() => setShowPayment(true)}
+                    disabled={cartItems.length === 0 || !loggedIn}
+                >
+                    Make a payment
+                </button>
+            ) :
+                <div>
+                    <h1>Add items to fill up cart!</h1>
                 </div>
-            ) : (
-                <>
-                    <button
-                        onClick={() => setShowPayment(true)}
-                        disabled={cartItems.length === 0 || !loggedIn}
-                    >
-                        Make a payment
-                    </button>
-                </>
-            )}
+            }
         </main>
     )
 }

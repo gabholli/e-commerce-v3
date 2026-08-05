@@ -1,13 +1,21 @@
+import toast from "react-hot-toast"
+import type { allProductsInterface } from "../../types/types"
+import api from "../api"
 
 export default function DeleteOneItemModal(
     {
         isVisible,
         onClose,
+        item,
+        onDelete
+
 
     }:
         {
             isVisible: boolean,
             onClose: () => void,
+            item: allProductsInterface,
+            onDelete: () => void
         }) {
     if (!isVisible) return null
 
@@ -16,7 +24,14 @@ export default function DeleteOneItemModal(
     }
 
     async function deleteCartItem() {
-
+        try {
+            await api.delete(`/cart/${item._id}`)
+            onDelete()
+            onClose()
+        } catch (error) {
+            console.error(error)
+            toast.error("Error deleting item")
+        }
     }
 
     return (
@@ -34,7 +49,7 @@ export default function DeleteOneItemModal(
                     X
                 </button>
                 <div className="bg-neutral-200 p-4 md:text-2xl">
-                    <h1>Are you sure you want to delete this item?</h1>
+                    <h1>Remove all {item.quantity === 1 ? null : item.quantity} of {item.title} from cart?</h1>
                     <div className="flex justify-center items-center gap-x-4">
                         <button onClick={deleteCartItem}>Yes</button>
                         <button onClick={() => onClose()}>No</button>
