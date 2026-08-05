@@ -115,21 +115,21 @@ export default function Cart() {
                 )}
 
             </div>
-            {cartItems.length > 0 && !showPayment ? (
+            {cartItems.length > 0 && !showPayment && (
                 <button
                     className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline w-40 block m-auto"
                     onClick={() => setShowPayment(true)}
-                    disabled={cartItems.length === 0 || !loggedIn}
+                    disabled={!loggedIn}
                 >
                     Make a payment
                 </button>
-            ) : null
+            )
             }
-            {cartItems.length === 0 && !showPayment ? (
+            {cartItems.length === 0 && !showPayment && (
                 <div>
                     <h1>Add items to fill up cart!</h1>
                 </div>
-            ) : null
+            )
             }
         </main>
     )
