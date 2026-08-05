@@ -123,10 +123,13 @@ export default function Cart() {
                 >
                     Make a payment
                 </button>
-            ) :
+            ) : null
+            }
+            {cartItems.length === 0 && !showPayment ? (
                 <div>
                     <h1>Add items to fill up cart!</h1>
                 </div>
+            ) : null
             }
         </main>
     )
