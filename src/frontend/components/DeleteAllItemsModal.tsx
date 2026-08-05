@@ -36,8 +36,17 @@ export default function DeleteAllItemsModal(
                 <div className="bg-neutral-200 p-4 md:text-2xl">
                     <h1>Are you sure you want to delete all items?</h1>
                     <div className="flex justify-center items-center gap-x-4">
-                        <button onClick={deleteAllCartItems}>Yes</button>
-                        <button onClick={() => onClose()}>No</button>
+                        <button onClick={deleteAllCartItems}
+                            className="cursor-pointer"
+                        >
+                            Yes
+                        </button>
+                        <button onClick={() => onClose()}
+                            className="cursor-pointer"
+                        >
+                            No
+
+                        </button>
                     </div>
                 </div>
 
