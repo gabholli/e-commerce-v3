@@ -115,7 +115,7 @@ export default function Cart() {
                 )}
 
             </div>
-            {cartItems.length > 0 ? (
+            {cartItems.length > 0 && !showPayment ? (
                 <button
                     className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline w-40 block m-auto"
                     onClick={() => setShowPayment(true)}
