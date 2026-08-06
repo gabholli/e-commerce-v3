@@ -83,8 +83,6 @@ export default function Cart() {
 
     }
 
-    console.log(cartItems)
-
     if (loading) return <Loading />
 
     return (

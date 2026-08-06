@@ -29,7 +29,6 @@ export default function HeaderWithHamburger() {
     function handleSignOut() {
         api.get("/auth/logout")
             .then(response => {
-                console.log(response.data)
                 setLoggedIn(false)
                 toast.success("Logged out successfully!")
             })
