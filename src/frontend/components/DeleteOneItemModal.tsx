@@ -48,10 +48,8 @@ export default function DeleteOneItemModal(
                 >
                     X
                 </button>
-                <div className="bg-neutral-200 p-4 md:text-2xl">
-                    <h1
-                        className="text-center"
-                    >
+                <div className="bg-neutral-200 p-4 md:text-2xl text-center">
+                    <h1>
                         {item.quantity === 1
                             ? `Remove ${item.title} from cart?`
                             : `Remove ${item.quantity} of ${item.title} from cart?`
