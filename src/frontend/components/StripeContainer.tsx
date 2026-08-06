@@ -9,7 +9,7 @@ const stripeTestPromise = loadStripe(PUBLIC_KEY)
 export default function StripeContainer({ onBack, amount }: { onBack: () => void, amount: number }) {
 
     const options = {
-        mode: "payment",
+        mode: "payment" as const,
         currency: "usd",
         amount
     }
