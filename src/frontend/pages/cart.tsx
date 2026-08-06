@@ -117,7 +117,7 @@ export default function Cart() {
             </div>
             {cartItems.length > 0 && !showPayment && (
                 <button
-                    className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline w-40 md:w-80 block m-auto"
+                    className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline w-60 md:w-80 block m-auto"
                     onClick={() => setShowPayment(true)}
                     disabled={!loggedIn}
                 >
