@@ -57,13 +57,13 @@ export default function DeleteOneItemModal(
                     </h1>
                     <div className="flex justify-center items-center gap-x-4">
                         <button
-                            className="hover:cursor-pointer"
+                            className="cursor-pointer"
                             onClick={deleteCartItem}
                         >
                             Yes
                         </button>
                         <button
-                            className="hover:cursor-pointer"
+                            className="cursor-pointer"
                             onClick={() => onClose()}
                         >
                             No

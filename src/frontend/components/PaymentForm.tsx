@@ -48,21 +48,25 @@ export default function PaymentForm({ onBack, amount }: { onBack: () => void, am
 
 
     return (
-        <>
-            <form onSubmit={submitForm} autoComplete="off">
+        <main className="flex flex-col justify-center items-center gap-y-4">
+            <form
+                className="flex flex-col justify-center items-center gap-y-4"
+                onSubmit={submitForm}
+                autoComplete="off"
+            >
                 <fieldset>
                     <PaymentElement />
                 </fieldset>
-                <button className="hover:cursor-pointer" type="submit">Pay</button>
+                <button className="bg-green-500 text-white px-4 py-2 w-full rounded-3xl cursor-pointer hover:underline" type="submit">Pay</button>
             </form>
 
             <button
                 onClick={onBack}
-                className="hover:cursor-pointer"
+                className="bg-green-500 text-white px-4 py-2 w-full rounded-3xl cursor-pointer hover:underline"
             >
                 Go back to Cart
             </button>
-        </>
+        </main>
 
     )
 }

@@ -91,8 +91,8 @@ export default function Cart() {
         <main className="p-8 flex flex-col flex-1 justify-center items-center gap-y-8">
             <div className="flex flex-col justify-center items-center">
                 {showPayment ? (
-                    <div>
-                        <h1>Make Payment:</h1>
+                    <div className="flex flex-col justify-center items-center gap-y-4">
+                        <h1 className="text-center">Make Payment:</h1>
                         <StripeContainer
                             onBack={goBackToCartButton}
                             amount={Math.round(cartTotal * 100)}
@@ -117,7 +117,7 @@ export default function Cart() {
             </div>
             {cartItems.length > 0 && !showPayment && (
                 <button
-                    className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline w-40 block m-auto"
+                    className="bg-green-500 text-white p-3 rounded-3xl cursor-pointer hover:underline w-40 md:w-80 block m-auto"
                     onClick={() => setShowPayment(true)}
                     disabled={!loggedIn}
                 >
