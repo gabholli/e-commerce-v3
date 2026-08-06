@@ -15,8 +15,6 @@ export async function makePayment(req: Request, res: Response) {
         return res.status(401).json({ error: "Unauthorized" })
     }
 
-    const { id } = req.body
-
     try {
         const cartTotal = await getTotalPriceFromCartQuery(userId)
         const amount = Math.round(cartTotal.totalPrice * 100)
@@ -25,12 +23,10 @@ export async function makePayment(req: Request, res: Response) {
             return res.status(400).json({ error: "Cart is empty" })
         }
 
-        const payment = await stripe.paymentIntents.create({
+        const paymentIntent = await stripe.paymentIntents.create({
             amount,
             currency: "usd",
             description: "E-commerce site",
-            payment_method: id,
-            confirm: true,
             metadata: {
                 userId
             },
@@ -39,16 +35,11 @@ export async function makePayment(req: Request, res: Response) {
                 allow_redirects: "never"
             }
         })
-        console.log("Payment", payment)
-        res.json({
-            message: "Payment successful",
-            success: true
-        })
+
+        res.json({ clientSecret: paymentIntent.client_secret })
+
     } catch (error) {
         console.error("Error", error)
-        res.json({
-            message: "Payment failed",
-            success: false
-        })
+        res.status(500).json({ error: "Payment failed" })
     }
 }

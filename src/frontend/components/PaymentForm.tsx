@@ -1,28 +1,9 @@
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
+import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import api from "../../frontend/api"
 import React from "react"
-import type { StripeCardElementOptions } from "@stripe/stripe-js"
 import { useNavigate } from "react-router"
 import { UserAuth } from "../context/AuthContext"
 import toast from "react-hot-toast"
-
-const CARD_OPTIONS: StripeCardElementOptions = {
-    iconStyle: "solid",
-    style: {
-        base: {
-            iconColor: "#c4f0ff",
-            color: "#000000",
-            fontWeight: 500,
-            fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
-            fontSize: "16px",
-            fontSmoothing: "antialiased",
-        },
-        invalid: {
-            iconColor: "#ffc7ee",
-            color: "#ffc7ee"
-        }
-    }
-}
 
 export default function PaymentForm({ onBack, amount }: { onBack: () => void, amount: number }) {
 
@@ -36,37 +17,32 @@ export default function PaymentForm({ onBack, amount }: { onBack: () => void, am
         e.preventDefault()
         if (!stripe || !elements) return
 
-        const cardElement = elements.getElement(CardElement)
+        const { error: submitError } = await elements.submit()
 
-        if (!cardElement) return
+        if (submitError) {
+            toast.error(submitError.message || "Payment failed")
+            return
+        }
 
-        const { error, paymentMethod } = await stripe?.createPaymentMethod({
-            type: "card",
-            card: cardElement
+        const res = await api.post("/payment", { amount })
+
+        const { error } = await stripe.confirmPayment({
+            elements,
+            clientSecret: res.data.clientSecret,
+            confirmParams: {
+                return_url: `${window.location.origin}/success`
+            },
+            redirect: "if_required"
         })
 
-        if (!error) {
-
-            try {
-                const { id } = paymentMethod
-
-                const response = await api.post("/payment", {
-                    amount: amount,
-                    id
-                })
-
-                if (response.data.success) {
-                    await api.delete("/cart/all")
-                    refreshCart()
-                    navigate("/success")
-                }
-            } catch (error: any) {
-                toast.error(error.response?.data?.error || "Payment failed. Please try again")
-                console.error("Error", error)
-            }
+        if (error) {
+            toast.error(error.message || "Payment failed")
         } else {
-            console.error(error.message)
+            await api.delete("/cart/all")
+            refreshCart()
+            navigate("/success")
         }
+
     }
 
 
@@ -75,15 +51,14 @@ export default function PaymentForm({ onBack, amount }: { onBack: () => void, am
         <>
             <form onSubmit={submitForm} autoComplete="off">
                 <fieldset>
-                    <div>
-                        <CardElement options={CARD_OPTIONS} />
-                    </div>
+                    <PaymentElement />
                 </fieldset>
-                <button type="submit">Pay</button>
+                <button className="hover:cursor-pointer" type="submit">Pay</button>
             </form>
 
             <button
                 onClick={onBack}
+                className="hover:cursor-pointer"
             >
                 Go back to Cart
             </button>

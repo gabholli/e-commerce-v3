@@ -7,7 +7,7 @@ export default function Success() {
             <h1 className="text-center text-3xl">
                 Your payment was successful!
             </h1>
-            <Link to="/" className="bg-green-500 px-4 py-2 rounded text-white text-xl hover:underline">
+            <Link to="/" className="bg-green-500 px-4 py-2 rounded-xl text-white text-xl hover:underline">
                 Return to home
             </Link>
         </div>

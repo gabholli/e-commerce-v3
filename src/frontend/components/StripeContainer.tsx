@@ -7,8 +7,15 @@ const PUBLIC_KEY = "pk_test_51U04nq2fNJpTHnByzuJrp0UtfZzmKQhEWlImWBdnsrNHhffBvbk
 const stripeTestPromise = loadStripe(PUBLIC_KEY)
 
 export default function StripeContainer({ onBack, amount }: { onBack: () => void, amount: number }) {
+
+    const options = {
+        mode: "payment",
+        currency: "usd",
+        amount
+    }
+
     return (
-        <Elements stripe={stripeTestPromise}>
+        <Elements stripe={stripeTestPromise} options={options}>
             <PaymentForm
                 onBack={onBack}
                 amount={amount}
