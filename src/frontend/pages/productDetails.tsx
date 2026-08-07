@@ -24,7 +24,6 @@ export default function ProductDetails() {
                 )
                 const data = await response.json()
                 setProduct(data)
-                console.log(data)
             } catch (e) {
                 if (e instanceof Error) {
                     setError(e)
