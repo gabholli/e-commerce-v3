@@ -18,6 +18,7 @@ I built this mock e-commerce app using the following:
 - This web page does not require any direct installation on your computer
 ### Executing program
 - To execute, navigate within your web browser to https://gabholli-e-commerce-site.netlify.app
+- Backend requires 30 - 60 seconds to spin up on first load, since I'm using a free instance on Render.com.
 
 ## Authors
 Gabe Hollifield
