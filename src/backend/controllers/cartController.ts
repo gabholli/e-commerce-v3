@@ -7,7 +7,7 @@ import {
 
 export async function addToCart(req: Request, res: Response) {
     const productId = Number(req.body.productId)
-    const { title, price, image } = req.body
+    const { title, image } = req.body
 
     if (!productId) {
         return res.status(400).json({ error: 'Invalid product ID' })
@@ -19,6 +19,27 @@ export async function addToCart(req: Request, res: Response) {
         return res.status(401).json({ error: 'Unauthorized' })
     }
 
+    let price: number
+
+    try {
+        const productResponse = await fetch(`https://fakestoreapi.com/products/${productId}`)
+
+        if (!productResponse.ok) {
+            return res.status(400).json({ error: 'Invalid product' })
+        }
+
+        const productData = await productResponse.json()
+        price = Number(productData.price)
+
+        if (!price || price <= 0) {
+            return res.status(400).json({ error: 'Invalid product' })
+        }
+
+    } catch (err) {
+        console.error("Error verifying product price: ", err)
+        return res.status(500).json({ error: 'Could not verify product' })
+    }
+
     const existing = await checkExistingInCartQuery(userId, productId)
 
     if (existing) {
@@ -28,7 +49,6 @@ export async function addToCart(req: Request, res: Response) {
         await insertIntoCartQuery(userId, productId, title, price, image)
         res.json({ inserted: true, message: "Added to cart" })
     }
-
 }
 
 export async function getTotalPrice(req: Request, res: Response) {
