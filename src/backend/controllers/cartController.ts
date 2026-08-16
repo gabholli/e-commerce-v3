@@ -28,7 +28,7 @@ export async function addToCart(req: Request, res: Response) {
             return res.status(400).json({ error: 'Invalid product' })
         }
 
-        const productData = await productResponse.json()
+        const productData = await productResponse.json() as { price: number }
         price = Number(productData.price)
 
         if (!price || price <= 0) {
