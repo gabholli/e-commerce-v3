@@ -10,6 +10,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
 
+if (!endpointSecret) {
+    throw new Error("STRIPE_WEBHOOK_SECRET environment variable is not set!")
+}
+
 export async function webhookHandler(req: Request, res: Response) {
     const signature = req.headers["stripe-signature"]
 
