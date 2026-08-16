@@ -34,3 +34,4 @@ export async function webhookHandler(req: Request, res: Response) {
             }
         }
     }
+}
