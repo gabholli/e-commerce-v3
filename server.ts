@@ -7,6 +7,7 @@ import { meRouter } from "./src/backend/routes/meRoutes.ts"
 import { cartRouter } from "./src/backend/routes/cartRoutes.ts"
 import { paymentRouter } from "./src/backend/routes/paymentRoutes.ts"
 import MongoStore from "connect-mongo"
+import { webhookRouter } from "./src/backend/routes/webhookRoutes.ts"
 
 const app = express()
 app.set("trust proxy", 1)
@@ -30,6 +31,8 @@ const mongoUri = process.env.ATLAS_URI
 if (!mongoUri) {
     throw new Error("ATLAS_URI environment variable is not set")
 }
+
+app.use("/webhook", express.raw({ type: "application/json" }), webhookRouter)
 
 app.use(express.json())
 
