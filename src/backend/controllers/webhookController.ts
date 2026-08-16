@@ -59,4 +59,6 @@ export async function webhookHandler(req: Request, res: Response) {
             console.log(`Unhandled event type: ${event.type} `)
 
     }
+
+    res.json({ received: true })
 }
