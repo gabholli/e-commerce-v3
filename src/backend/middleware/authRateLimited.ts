@@ -5,5 +5,5 @@ export const authRateLimiter = rateLimit({
     limit: 10,
     standardHeaders: true,
     legacyHeaders: false,
-    message: { error: "Too many attempts, please try again later" }
+    message: { error: "Too many attempts, please try again in 15 minutes" }
 })
