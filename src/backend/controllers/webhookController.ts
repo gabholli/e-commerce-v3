@@ -1,6 +1,6 @@
 import type { Request, Response } from "express"
 import Stripe from "stripe"
-import { deleteAllFromCartQuery } from "../models/cartModels"
+import { deleteAllFromCartQuery } from "../models/cartModels.ts"
 
 if (!process.env.STRIPE_SECRET_KEY) {
     throw new Error("STRIPE_SECRET_KEY environment variable is not set!")
