@@ -1,5 +1,4 @@
 import type { Request, Response } from "express"
-import { sign } from "node:crypto"
 import Stripe from "stripe"
 import { deleteAllFromCartQuery } from "../models/cartModels"
 

@@ -6,8 +6,8 @@ import { authRouter } from "./src/backend/routes/authRoutes.ts"
 import { meRouter } from "./src/backend/routes/meRoutes.ts"
 import { cartRouter } from "./src/backend/routes/cartRoutes.ts"
 import { paymentRouter } from "./src/backend/routes/paymentRoutes.ts"
-import MongoStore from "connect-mongo"
 import { webhookRouter } from "./src/backend/routes/webhookRoutes.ts"
+import MongoStore from "connect-mongo"
 
 const app = express()
 app.set("trust proxy", 1)
