@@ -9,7 +9,7 @@ export async function addToCart(req: Request, res: Response) {
     const productId = Number(req.body.productId)
     const { title, image } = req.body
 
-    if (!productId) {
+    if (!productId || isNaN(productId)) {
         return res.status(400).json({ error: 'Invalid product ID' })
     }
 
@@ -19,25 +19,10 @@ export async function addToCart(req: Request, res: Response) {
         return res.status(401).json({ error: 'Unauthorized' })
     }
 
-    let price: number
+    const price = Number(req.body.price)
 
-    try {
-        const productResponse = await fetch(`https://fakestoreapi.com/products/${productId}`)
-
-        if (!productResponse.ok) {
-            return res.status(400).json({ error: 'Invalid product' })
-        }
-
-        const productData = await productResponse.json() as { price: number }
-        price = Number(productData.price)
-
-        if (!price || price <= 0) {
-            return res.status(400).json({ error: 'Invalid product' })
-        }
-
-    } catch (err) {
-        console.error("Error verifying product price: ", err)
-        return res.status(500).json({ error: 'Could not verify product' })
+    if (!price || price <= 0) {
+        return res.status(400).json({ error: "Invalid price" })
     }
 
     const existing = await checkExistingInCartQuery(userId, productId)
