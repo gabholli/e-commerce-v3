@@ -41,7 +41,10 @@ const authRateLimiter = rateLimit({
     standardHeaders: true,
     legacyHeaders: false,
     keyGenerator: (req) => {
-        const ip = req.ip || req.headers['x-forwarded-for'] || 'unknown'
+        const forwarded = req.headers['x-forwarded-for']
+        const ip = Array.isArray(forwarded)
+            ? forwarded[0]
+            : forwarded?.split(',')[0] || req.ip
         console.log("Rate limit key:", ip)  // 🔍
         return ip as string
     },
