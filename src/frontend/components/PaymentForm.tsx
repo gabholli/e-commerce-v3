@@ -4,8 +4,9 @@ import React from "react"
 import { useNavigate } from "react-router"
 import { UserAuth } from "../context/AuthContext"
 import toast from "react-hot-toast"
+import type { allProductsInterface } from "../../types/types"
 
-export default function PaymentForm({ onBack, amount }: { onBack: () => void, amount: number }) {
+export default function PaymentForm({ onBack, amount, cartItems }: { onBack: () => void, amount: number, cartItems: allProductsInterface[] }) {
 
     const { refreshCart } = UserAuth()
 
@@ -45,7 +46,10 @@ export default function PaymentForm({ onBack, amount }: { onBack: () => void, am
                     pathname: "/success"
                 },
                 {
-                    state: { amount: amount / 100 }
+                    state: {
+                        amount: amount / 100,
+                        cartItems: cartItems
+                    }
                 }
             )
         }

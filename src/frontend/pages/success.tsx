@@ -4,6 +4,9 @@ export default function Success() {
 
     const location = useLocation()
     const currentPrice = location.state?.amount
+    const cartItemList = location.state?.cartItems
+
+    console.log(cartItemList)
 
     return (
         <div className="flex flex-col flex-1 justify-center items-center

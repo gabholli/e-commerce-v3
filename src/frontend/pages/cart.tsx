@@ -94,6 +94,7 @@ export default function Cart() {
                         <StripeContainer
                             onBack={goBackToCartButton}
                             amount={Math.round(cartTotal * 100)}
+                            cartItems={cartItems}
                         />
                     </div>
                 ) : (
