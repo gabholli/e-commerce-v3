@@ -40,7 +40,16 @@ const authRateLimiter = rateLimit({
     limit: 10,
     standardHeaders: true,
     legacyHeaders: false,
+    keyGenerator: (req) => {
+        const ip = req.ip || req.headers['x-forwarded-for'] || 'unknown'
+        console.log("Rate limit key:", ip)  // 🔍
+        return ip as string
+    },
     message: { error: "Too many attempts, please try again in 15 minutes" },
+    handler: (req, res) => {
+        console.log(`Rate limit hit for IP: ${req.ip}`)  // 🔍
+        res.status(429).json({ error: "Too many attempts, please try again in 15 minutes" })
+    },
     store: new RateLimitMongo({
         uri: mongoUri,
         collectionName: "rateLimits",
