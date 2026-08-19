@@ -2,7 +2,7 @@ import { registerUser, loginUser, logoutUser } from '../controllers/authControll
 import express from 'express'
 import type rateLimit from 'express-rate-limit'
 
-export function createAuthRouter(authRateLimiter: ReturnType<typeof rateLimit) {
+export function createAuthRouter(authRateLimiter: ReturnType<typeof rateLimit>) {
 
     const authRouter = express.Router()
 
