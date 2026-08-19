@@ -45,7 +45,7 @@ export default function PaymentForm({ onBack, amount }: { onBack: () => void, am
                     pathname: "/success"
                 },
                 {
-                    state: { amount: amount }
+                    state: { amount: amount / 100 }
                 }
             )
         }
