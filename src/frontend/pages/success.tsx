@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router"
 export default function Success() {
 
     const location = useLocation()
-    const currentPrice = location.state.amount
+    const currentPrice = location.state?.amount
 
     return (
         <div className="flex flex-col flex-1 justify-center items-center
