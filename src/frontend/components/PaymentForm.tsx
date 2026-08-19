@@ -40,7 +40,14 @@ export default function PaymentForm({ onBack, amount }: { onBack: () => void, am
         } else {
             await api.delete("/cart/all")
             refreshCart()
-            navigate("/success")
+            navigate(
+                {
+                    pathname: "/success"
+                },
+                {
+                    state: { amount: amount }
+                }
+            )
         }
 
     }
