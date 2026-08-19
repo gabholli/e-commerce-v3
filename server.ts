@@ -2,7 +2,6 @@ import "dotenv/config"
 import express from "express"
 import cors from "cors"
 import session from "express-session"
-import { authRouter } from "./src/backend/routes/authRoutes.ts"
 import { meRouter } from "./src/backend/routes/meRoutes.ts"
 import { cartRouter } from "./src/backend/routes/cartRoutes.ts"
 import { paymentRouter } from "./src/backend/routes/paymentRoutes.ts"
@@ -10,7 +9,6 @@ import { webhookRouter } from "./src/backend/routes/webhookRoutes.ts"
 import MongoStore from "connect-mongo"
 import RateLimitMongo from "rate-limit-mongo"
 import rateLimit from "express-rate-limit"
-import { create } from "domain"
 
 
 const app = express()
