@@ -2,15 +2,12 @@ import "dotenv/config"
 import express from "express"
 import cors from "cors"
 import session from "express-session"
+import { authRouter } from "./src/backend/routes/authRoutes.ts"
 import { meRouter } from "./src/backend/routes/meRoutes.ts"
 import { cartRouter } from "./src/backend/routes/cartRoutes.ts"
 import { paymentRouter } from "./src/backend/routes/paymentRoutes.ts"
 import { webhookRouter } from "./src/backend/routes/webhookRoutes.ts"
 import MongoStore from "connect-mongo"
-import RateLimitMongo from "rate-limit-mongo"
-import rateLimit from "express-rate-limit"
-import { createAuthRouter } from "./src/backend/routes/authRoutes.ts"
-
 
 const app = express()
 app.set("trust proxy", 1)
@@ -35,31 +32,6 @@ if (!mongoUri) {
     throw new Error("ATLAS_URI environment variable is not set")
 }
 
-const authRateLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    limit: 10,
-    standardHeaders: true,
-    legacyHeaders: false,
-    keyGenerator: (req) => {
-        const forwarded = req.headers['x-forwarded-for']
-        const ip = Array.isArray(forwarded)
-            ? forwarded[0]
-            : forwarded?.split(',')[0] || req.ip
-        console.log("Rate limit key:", ip)  // 🔍
-        return ip as string
-    },
-    message: { error: "Too many attempts, please try again in 15 minutes" },
-    handler: (req, res) => {
-        console.log(`Rate limit hit for IP: ${req.ip}`)  // 🔍
-        res.status(429).json({ error: "Too many attempts, please try again in 15 minutes" })
-    },
-    store: new RateLimitMongo({
-        uri: mongoUri,
-        collectionName: "rateLimits",
-        expireTimeMs: 15 * 60 * 1000
-    })
-})
-
 app.use("/webhook", express.raw({ type: "application/json" }), webhookRouter)
 
 app.use(express.json())
@@ -81,7 +53,7 @@ app.use(session({
 }))
 
 app.use("/auth/me", meRouter)
-app.use("/auth", createAuthRouter(authRateLimiter))
+app.use("/auth", authRouter)
 app.use("/cart", cartRouter)
 app.use("/payment", paymentRouter)
 
