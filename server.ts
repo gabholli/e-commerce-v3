@@ -8,6 +8,10 @@ import { cartRouter } from "./src/backend/routes/cartRoutes.ts"
 import { paymentRouter } from "./src/backend/routes/paymentRoutes.ts"
 import { webhookRouter } from "./src/backend/routes/webhookRoutes.ts"
 import MongoStore from "connect-mongo"
+import RateLimitMongo from "rate-limit-mongo"
+import rateLimit from "express-rate-limit"
+import { create } from "domain"
+
 
 const app = express()
 app.set("trust proxy", 1)
@@ -32,6 +36,19 @@ if (!mongoUri) {
     throw new Error("ATLAS_URI environment variable is not set")
 }
 
+const authRateLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: "Too many attempts, please try again in 15 minutes" },
+    store: new RateLimitMongo({
+        uri: mongoUri,
+        collectionName: "rateLimits",
+        expireTimeMs: 15 * 60 * 1000
+    })
+})
+
 app.use("/webhook", express.raw({ type: "application/json" }), webhookRouter)
 
 app.use(express.json())
@@ -53,7 +70,7 @@ app.use(session({
 }))
 
 app.use("/auth/me", meRouter)
-app.use("/auth", authRouter)
+app.use("/auth", createAuthRouter(authRateLimiter))
 app.use("/cart", cartRouter)
 app.use("/payment", paymentRouter)
 

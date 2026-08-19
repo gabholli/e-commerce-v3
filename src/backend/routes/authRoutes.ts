@@ -1,9 +1,14 @@
 import { registerUser, loginUser, logoutUser } from '../controllers/authController.ts'
 import express from 'express'
-import { authRateLimiter } from '../middleware/authRateLimited.ts'
+import type rateLimit from 'express-rate-limit'
 
-export const authRouter = express.Router()
+export function createAuthRouter(authRateLimiter: ReturnType<typeof rateLimit) {
 
-authRouter.post('/register', authRateLimiter, registerUser)
-authRouter.post('/login', authRateLimiter, loginUser)
-authRouter.get('/logout', logoutUser)
+    const authRouter = express.Router()
+
+    authRouter.post('/register', authRateLimiter, registerUser)
+    authRouter.post('/login', authRateLimiter, loginUser)
+    authRouter.get('/logout', logoutUser)
+
+    return authRouter
+}
