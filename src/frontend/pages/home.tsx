@@ -36,10 +36,6 @@ export default function Home() {
     }, [])
 
     async function handleAddClick(productId: number, title: string, price: number, image: string) {
-        console.log("productId:", productId, typeof productId)  // 🔍
-        console.log("title:", title)  // 🔍
-        console.log("price:", price)  // 🔍
-        console.log("image:", image)  // 🔍
         try {
             if (!loggedIn) {
                 toast.error("Please log in to add to cart")
