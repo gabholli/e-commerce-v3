@@ -9,6 +9,7 @@ import { webhookRouter } from "./src/backend/routes/webhookRoutes.ts"
 import MongoStore from "connect-mongo"
 import RateLimitMongo from "rate-limit-mongo"
 import rateLimit from "express-rate-limit"
+import { createAuthRouter } from "./src/backend/routes/authRoutes.ts"
 
 
 const app = express()
