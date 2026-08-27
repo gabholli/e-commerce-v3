@@ -54,7 +54,7 @@ export default function Home() {
         }
     }
 
-    const allProducts = filteredResults?.map((product) => {
+    const allProducts = filteredResults?.map((product: allProductsInterface) => {
         return (
             <div
                 key={product.id}
