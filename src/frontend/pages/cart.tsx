@@ -104,7 +104,7 @@ export default function Cart() {
                     </div>
                 ) : (
                     <>
-                        <div className="flex flex-wrap gap-8 justify-center items-stretch">
+                        <div className="flex flex-col md:flex-row md:flex-wrap gap-8 justify-center items-stretch">
                             {cartItemsMap}
                         </div>
                     </>
