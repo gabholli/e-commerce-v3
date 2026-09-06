@@ -11,6 +11,8 @@ I built this mock e-commerce app using the following:
 - MongoDB
 - Stripe
 
+![Screenshot from React Shop's product list page](public/e-commerce-v3.png)
+
 ## Getting Started
 ### Dependencies
 - Runs within one's web browser of choice
